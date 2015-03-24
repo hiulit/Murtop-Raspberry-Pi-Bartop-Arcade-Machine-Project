@@ -7,8 +7,8 @@
 
 ## ApplePi-Baker
 
-* Select the SD card. ![](/Users/hiulit/Desktop/Captura de pantalla 2015-03-25 a les 0.07.01.png)
-* Select the `.img`. ![](/Users/hiulit/Desktop/Captura de pantalla 2015-03-25 a les 0.19.34.png)
-* Restore backup. ![](/Users/hiulit/Desktop/Captura de pantalla 2015-03-25 a les 0.09.05.png)
-* Finished! :D ![](/Users/hiulit/Desktop/Captura de pantalla 2015-03-25 a les 0.16.42.png)
+* Select the SD card. ![Select the SD card.](img/ApplePi-Baker-01.png)
+* Select the `.img`. ![Select the .img.](img/ApplePi-Baker-02.png)
+* Restore backup. ![Restore backup.](img/ApplePi-Baker-03.png)
+* Finished! :D ![Finished! :D](img/ApplePi-Baker-04.png)
 * Safely eject the SD card using the **Utility Disks** app.
