@@ -12,3 +12,11 @@
 * Restore backup. ![Restore backup.](img/ApplePi-Baker-03.png)
 * Finished! :D ![Finished! :D](img/ApplePi-Baker-04.png)
 * Safely eject the SD card using the **Utility Disks** app.
+
+## Setting up RetroPie
+
+* Insert the recently flashed SD card into the Raspberry Pi and power it up.
+* It will boot up directly into [EmulationStation](http://www.emulationstation.org/) (the graphical front-end emulator).
+* It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus.
+* Before proceeding any further, let's back up a little and configure the Wi-Fi.
+
