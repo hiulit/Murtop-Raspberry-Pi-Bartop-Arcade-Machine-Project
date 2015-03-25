@@ -20,3 +20,7 @@
 * It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus.
 * Before proceeding any further, let's back up a little and configure the Wi-Fi.
 
+## Configuring the Raspberry Pi Wi-Fi
+
+
+
