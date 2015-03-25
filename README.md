@@ -1,5 +1,7 @@
 # Raspberry Pi Bartop Arcade Machine Project
 
+> Work in progress
+
 * Download [RetroPie Project SD-card Image for Raspberry Pi 1](http://blog.petrockblock.com/retropie/retropie-downloads/download-info/retropie-sd-card-image-for-rpi-version-1/) or [RetroPie Project SD-card Image for Raspberry Pi 2](http://blog.petrockblock.com/retropie/retropie-downloads/download-info/retropie-sd-card-image-for-rpi-version-2/).
 * Unzip the image.
 * Flash de image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
