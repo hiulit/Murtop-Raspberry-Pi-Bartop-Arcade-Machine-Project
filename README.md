@@ -1,4 +1,4 @@
-# Raspberry Pi Bartop Project
+# Raspberry Pi Bartop Arcade Machine Project
 
 * Download [RetroPie Project SD-card Image for Raspberry Pi 1](http://blog.petrockblock.com/retropie/retropie-downloads/download-info/retropie-sd-card-image-for-rpi-version-1/) or [RetroPie Project SD-card Image for Raspberry Pi 2](http://blog.petrockblock.com/retropie/retropie-downloads/download-info/retropie-sd-card-image-for-rpi-version-2/).
 * Unzip the image.
