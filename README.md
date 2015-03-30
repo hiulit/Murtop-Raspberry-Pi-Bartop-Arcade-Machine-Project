@@ -77,4 +77,10 @@ iface wlan0 inet dhcp
 * Enter your username (by default **pi**) and password (by default **raspberry**).
 * Connect.
 
+## Wiring the joysticks and buttons
+
+![GPIO](img/GPIO.png)
+![Wiring-01](img/Wiring-01.jpg)
+![Wiring-02.](img/Wiring-02.jpg)
+
 
