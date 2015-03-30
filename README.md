@@ -20,9 +20,61 @@
 * Insert the recently flashed SD card into the Raspberry Pi and power it up.
 * It will boot up directly into [EmulationStation](http://www.emulationstation.org/) (the graphical front-end emulator).
 * It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus.
-* Before proceeding any further, let's back up a little and configure the Wi-Fi.
+* But, **before proceeding any further**, let's back up a little and configure the Wi-Fi and other settings.
+
+## Expanding the Filesystem
+
+* Boot the Raspberry Pi.
+* Quit Emulation Station. It will take you to the command line.
+* Enter `sudo raspi-config`. 
+* Select `1 Expand Filesystem`. This will make all the SD card storage available for usage.
+
+## Setting up language and input
+
+* Still in the `raspi-config` screen, select `4 Internationalisation Options`.
+* Here you can change your locale, timezone and keyboard input.
+* When you're done, select `Finish` and reboot.
 
 ## Configuring the Raspberry Pi Wi-Fi
 
+* Boot the Raspberry Pi with the Wi-Fi adapter plugged in.
+* Quit Emulaton Station. It will take you to the command line.
+* Enter `sudo nano /etc/network/interfaces`.
+* Modify the file so it looks like this one:
+
+```
+auto lo
+ 
+iface lo inet loopback
+iface eth0 inet dhcp
+
+
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+        wpa-ssid "ssid"
+        wpa-psk "password"
+```
+
+* When you're finished, click `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then `return` to save the file with the same name.
+* Enter `sudo reboot`. This will reboot the Raspberry Pi.
+* To check if the Wi-Fi is working, go to the command line again and enter `sudo ip addr show` and under `wlan0` it will tell you your IP.
+
+## Accessing the Raspberry Pi via SSH
+
+### Using the Terminal
+
+* Open a Terminal session on your computer and enter `ssh pi@your.raspberrypi.ip.address`.
+* It will ask you to add this address to a list of known hosts. Say `yes`.
+* It will ask you for the Raspberry Pi **password**, which by default is **raspberry**.
+
+### Using Cyberduck
+
+* Open [Cyberduck](https://cyberduck.io/), click **New connection**.
+* Select **SFTP (SSH File Transfer Protocol)**.
+* Enter the Raspberry Pi IP address in **Server**.
+* Leave the port at 22.
+* Enter your username (by default **pi**) and password (by default **raspberry**).
+* Connect.
 
 
