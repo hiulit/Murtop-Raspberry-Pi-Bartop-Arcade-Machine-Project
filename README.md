@@ -7,10 +7,12 @@
 * Flash de image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
 * [More info](http://elinux.org/RPi_Easy_SD_Card_Setup#Flashing_the_SD_card_using_Mac_OS_X) about flashing sd cards on OSX.
 
-## ApplePi-Baker
+## Flashing the SD card with ApplePi-Baker
+
+> Using another app like this one should be pretty similar to use.
 
 * Select the SD card. ![Select the SD card.](img/ApplePi-Baker-01.png)
-* Select the `.img`. ![Select the .img.](img/ApplePi-Baker-02.png)
+* Select the `.img` you just downloaded. ![Select the .img.](img/ApplePi-Baker-02.png)
 * Restore backup. ![Restore backup.](img/ApplePi-Baker-03.png)
 * Finished! :D ![Finished! :D](img/ApplePi-Baker-04.png)
 * Safely eject the SD card using the **Utility Disks** app.
