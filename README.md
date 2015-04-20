@@ -21,7 +21,7 @@
 
 * Insert the recently flashed SD card into the Raspberry Pi and power it up.
 * It will boot up directly into [EmulationStation](http://www.emulationstation.org/) (the graphical front-end emulator).
-* It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus.
+* It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus. Use the keyboard for now.
 * But, **before proceeding any further**, let's back up a little and configure the Wi-Fi and other settings.
 
 ## Expanding the Filesystem
