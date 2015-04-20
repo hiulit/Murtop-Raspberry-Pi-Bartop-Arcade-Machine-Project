@@ -61,6 +61,7 @@ iface wlan0 inet dhcp
 * When you're finished, click `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then `return` to save the file with the same name.
 * Enter `sudo reboot`. This will reboot the Raspberry Pi.
 * To check if the Wi-Fi is working, go to the command line again and enter `sudo ip addr show` and under `wlan0` it will tell you your IP.
+* Or you could just type `hostname -I`. It does the same thing.
 
 ## Accessing the Raspberry Pi via SSH
 
