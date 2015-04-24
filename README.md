@@ -82,8 +82,15 @@ iface wlan0 inet dhcp
 
 ## Wiring the joysticks and buttons
 
+With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfect for a 2 player bartop, including:
+
+* 2 joysticks (8 buttons)
+* 12 action buttons
+* 2 players buttons
+* 2 service buttons
+* 2 pinball buttons.
+
 ![GPIO](img/GPIO.png)
 ![Wiring-01](img/Wiring-01.jpg)
 ![Wiring-02.](img/Wiring-02.jpg)
-
 
