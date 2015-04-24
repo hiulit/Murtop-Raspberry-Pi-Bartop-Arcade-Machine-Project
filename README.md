@@ -94,3 +94,69 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 ![Wiring-01](img/Wiring-01.jpg)
 ![Wiring-02.](img/Wiring-02.jpg)
 
+## Setting up the buttons
+
+Download [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame), a software that converts the GPIO into key strokes.
+
+* Boot the Raspberry Pi.
+* Quit Emulation Station. It will take you to the command line.
+* Unzip `Adafruit-Retrogame.zip`.
+* Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
+* Copy the `Adafruit-Retrogame` folder into `/home/pi/` on your Raspberry Pi. 
+* Open a [Terminal session](#using-the-terminal) and type:
+
+```
+cd Adafruit-Retrogame
+nano retrogame.c
+```
+
+* Scroll down until you see:
+
+```
+ioStandard[] = {
+    // This pin/key table is used when the PiTFT isn't found
+    // (using HDMI or composite instead), as with our original
+    // retro gaming guide.
+    // Input   Output (from /usr/include/linux/input.h)
+    {  25,     KEY_LEFT     },   // Joystick (4 pins)
+    {   9,     KEY_RIGHT    },
+    {  10,     KEY_UP       },
+    {  17,     KEY_DOWN     },
+    {  23,     KEY_LEFTCTRL },   // A/Fire/jump/primary
+    {   7,     KEY_LEFTALT  },   // B/Bomb/secondary
+    // For credit/start/etc., use USB keyboard or add more buttons.
+    {  -1,     -1           } }; // END OF LIST, DO NOT CHANGE
+```
+* Change it to fit.
+* Now type:
+
+```
+make retrogame
+```
+* Then:
+
+```
+sudo nano /etc/udev/rules.d/10-retrogame.rules
+```
+* And copy:
+
+```
+SUBSYSTEM=="input", ATTRS{name}=="retrogame", ENV{ID_INPUT_KEYBOARD}="1"
+```
+* Now try that it works. Type:
+
+```
+sudo ./retrogame
+```
+* If you don't get any error, it's working. Press `ctrl + c` to stop the program.
+* To set it up to launch at startup, type:
+
+```
+sudo nano /etc/rc.local
+``` 
+* Before the final “exit 0” line, insert this line:
+
+```
+/home/pi/Adafruit-Retrogame/retrogame &
+```
+* Reboot the Raspberry Pi.
