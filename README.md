@@ -184,3 +184,13 @@ sudo ./retropie_setup.sh
 * Select **Option 3 Setup**
 * Select **Option 317 Register RetroArch controller**
 * Follow the on screen directions. It will ask you to press 
+
+## Emulators and ROMs
+
+* Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
+* Go to:
+
+```
+/home/pi/RetroPie/roms/
+```
+* 
