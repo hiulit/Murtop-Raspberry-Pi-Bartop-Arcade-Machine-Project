@@ -160,3 +160,18 @@ sudo nano /etc/rc.local
 /home/pi/Adafruit-Retrogame/retrogame &
 ```
 * Reboot the Raspberry Pi.
+
+## Configuring a USB controller
+
+* Boot the Raspberry Pi.
+* Quit Emulation Station. It will take you to the command line.
+* Type:
+
+```
+cd RetroPie-Setup
+sudo ./retropie_setup.sh
+```
+* It will open a basic GUI.
+* Select **Option 3 Setup**
+* Select **Option 317 Register RetroArch controller**
+* Follow the on screen directions. It will ask you to press 
