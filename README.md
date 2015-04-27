@@ -141,6 +141,8 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 
 ![Wiring-02.](img/Wiring-02.jpg)
 
+*My humble scaffold for the controller.*
+
 ## Setting up the arcade buttons
 
 Download [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame), a software that converts the GPIO into key strokes.
