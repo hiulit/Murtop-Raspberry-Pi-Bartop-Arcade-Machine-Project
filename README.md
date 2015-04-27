@@ -237,7 +237,8 @@ sudo ./retropie_setup.sh
 * It will open a basic GUI.
 * Select **Option 3 Setup**
 * Select **Option 317 Register RetroArch controller**
-* Follow the on screen directions. It will ask you to press all the buttons on your controller. Just press the ones you need.
+* Follow the on screen directions. It will ask you to press all the buttons on your controller.
+* Just press the ones you need. Let the one you won't need to **timeout**.
 
 ### SNES controller
 
