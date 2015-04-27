@@ -133,7 +133,7 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 * 2 service buttons
 * 2 pinball buttons.
 
-![GPIO](http://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-4-309126/GPIO_Pi2.png)
+![GPIO](img/GPIO.png)
 
 *Image from [element14](http://www.element14.com/).*
 
