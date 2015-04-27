@@ -37,20 +37,31 @@
 
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
-* Enter `sudo raspi-config`. 
-* Select `1 Expand Filesystem`. This will make all the SD card storage available for usage.
+* Type:
+
+```
+sudo raspi-config
+```
+
+* It will open a basic GUI. 
+* Select **1 Expand Filesystem**. This will make all the SD card storage available for usage.
 
 ## Setting up language and input
 
-* Still in the `raspi-config` screen, select `4 Internationalisation Options`.
+* Still in the `raspi-config` screen, select **4 Internationalisation Options**.
 * Here you can change your locale, timezone and keyboard input.
-* When you're done, select `Finish` and reboot.
+* When you're done, select **Finish** and reboot.
 
 ## Configuring the Raspberry Pi Wi-Fi
 
 * Boot the Raspberry Pi with the Wi-Fi adapter plugged in.
 * Quit Emulaton Station. It will take you to the command line.
-* Enter `sudo nano /etc/network/interfaces`.
+* Type:
+
+```
+sudo nano /etc/network/interfaces
+```
+
 * Modify the file so it looks like this one:
 
 ```
@@ -67,16 +78,39 @@ iface wlan0 inet dhcp
         wpa-psk "password"
 ```
 
-* When you're finished, click `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then press `return` to save the file with the same name.
-* Enter `sudo reboot`. This will reboot the Raspberry Pi.
-* To check if the Wi-Fi is working, go to the command line again and enter `sudo ip addr show` and under `wlan0` it will tell you your IP.
-* Or you could just type `hostname -I`. It does the same thing.
+* When you're finished, press `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then press `return` to save the file with the same name.
+* Type:
+
+```
+sudo reboot
+```
+
+* This will reboot the Raspberry Pi.
+* To check if the Wi-Fi is working, go to the command line again and type:
+
+```
+sudo ip addr show
+```
+
+* And under `wlan0` you'll find your IP.
+* Or just type:
+
+```
+hostname -I
+```
+
+* It does the same thing ;)
 
 ## Accessing the Raspberry Pi via SSH
 
 ### Using the Terminal
 
-* Open a Terminal session on your computer and enter `ssh pi@your.raspberrypi.ip.address`.
+* Open a Terminal session on your computer and type:
+
+```
+ssh pi@your.raspberrypi.ip.address
+```
+
 * It will ask you to add this address to a list of known hosts. Type `yes` and press `return`.
 * It will ask you for the Raspberry Pi **password**, which by default is **raspberry**.
 
@@ -99,7 +133,8 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 * 2 service buttons
 * 2 pinball buttons.
 
-![GPIO](img/GPIO.png)
+![GPIO](http://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-4-309126/GPIO_Pi2.png)
+*Image from [element14](http://www.element14.com/).*
 
 ![Wiring-01](img/Wiring-01.jpg)
 
@@ -138,39 +173,52 @@ ioStandard[] = {
     // For credit/start/etc., use USB keyboard or add more buttons.
     {  -1,     -1           } }; // END OF LIST, DO NOT CHANGE
 ```
+
 * Change it to fit.
 * Now type:
 
 ```
 make retrogame
 ```
+
 * Then:
 
 ```
 sudo nano /etc/udev/rules.d/10-retrogame.rules
 ```
+
 * And copy:
 
 ```
 SUBSYSTEM=="input", ATTRS{name}=="retrogame", ENV{ID_INPUT_KEYBOARD}="1"
 ```
-* Now try that it works. Type:
+
+* When you're finished, press `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then press `return` to save the file with the same name.
+* Let's see if it works. Type:
 
 ```
 sudo ./retrogame
 ```
+
 * If you don't get any error, it's working. Press `ctrl + c` to stop the program.
-* To set it up to launch at startup, type:
+* To set it up to **launch at startup**, type:
 
 ```
 sudo nano /etc/rc.local
 ``` 
-* Before the final “exit 0” line, insert this line:
+
+* Before the final `exit 0` line, insert this line:
 
 ```
 /home/pi/Adafruit-Retrogame/retrogame &
 ```
-* Reboot the Raspberry Pi.
+
+* When you're finished, press `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then press `return` to save the file with the same name.
+* Reboot the Raspberry Pi. Type:
+
+```
+sudo reboot
+```
 
 ## Configuring a USB controller
 
@@ -182,17 +230,33 @@ sudo nano /etc/rc.local
 cd RetroPie-Setup
 sudo ./retropie_setup.sh
 ```
+
 * It will open a basic GUI.
 * Select **Option 3 Setup**
 * Select **Option 317 Register RetroArch controller**
-* Follow the on screen directions. It will ask you to press 
+* Follow the on screen directions. It will ask you to press all the buttons on your controller. Just press the ones you need.
+
+### SNES controller
+
+![SNES controller](https://cloud.githubusercontent.com/assets/10035308/7110174/0f2fdb54-e16a-11e4-8f3d-37bdca8f1ddf.png)
+
+### Xbox 360 controller
+
+![Xbox 360 controller](https://cloud.githubusercontent.com/assets/10035308/7110173/0f2ea784-e16a-11e4-9c6f-5fe7c594b05a.png)
+
+### PlayStation 3 controller
+
+![Xbox 360 controller](https://cloud.githubusercontent.com/assets/10035308/7111199/e29365ec-e179-11e4-87b4-f00685661d7e.png)
+
+*Images from [petrockblog's RetrPie Setup's Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
 
 ## Emulators and ROMs
 
 * Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
-* Go to:
+* Go to `/home/pi/RetroPie/roms/`
+* Look for the emulator's folder corresponding to your ROM and copy it there.
+* Reboot the Raspberry Pi. Type:
 
 ```
-/home/pi/RetroPie/roms/
+sudo reboot
 ```
-* 
