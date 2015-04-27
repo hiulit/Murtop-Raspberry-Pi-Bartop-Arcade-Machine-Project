@@ -80,7 +80,7 @@ iface wlan0 inet dhcp
 * It will ask you to add this address to a list of known hosts. Type `yes` and press `return`.
 * It will ask you for the Raspberry Pi **password**, which by default is **raspberry**.
 
-### Using Cyberduck
+### Using Cyberduck (or any other FTP client)
 
 * Open [Cyberduck](https://cyberduck.io/), click **New connection**.
 * Select **SFTP (SSH File Transfer Protocol)**.
