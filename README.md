@@ -3,6 +3,10 @@
 > Work in progress
 
 * [Checklist](#checklist)
+* [Tools and materials](#tools-and-materials)
+	* [Internals](#internals)
+	* [Display](#display)
+	* [Controls](#controls) 
 * [Downaload RetroPie](#download-retropie)
 * [Flashing the SD card with ApplePi-Baker](#flashing-the-sd-card-with-applepi-baker)
 * [Setting up RetroPie](setting-up-retropie)
@@ -26,6 +30,33 @@
 * 2 players GPIO arcade buttons &#x2717;
 * 1 player USB controller &#x2713;
 * 2 players USB controller &#x2717;
+
+## Tools and materials
+
+*If there's no price it means that I didn't buy the item because I already had it.*
+
+### Internals
+
+* [Raspberry Pi 2 Model B  - Complete Starter kit](http://www.amazon.es/dp/B00STW2Y6E/ref=pe_386191_41384461_TE_item) - **65,99€**
+	* Raspberry Pi 2 Model B (1GB)
+	* Enclousure Case (Clear)
+	* Set of 2 Heat Sink
+	* Micro USB EU Power Supply (2000 mA)
+	* HDMI Cable
+	* 8GB SD card
+	* Wi-Fi adapter (801.11n)
+
+### Display
+
+* 21" LCD TFT monitor
+* DVI cable
+* [DVI-D (female) to HDMI (male) adapter](http://www.amazon.es/dp/B009YCASUW/ref=pe_386191_41384461_TE_item) - **8,61€**
+
+### Controls
+
+* [Joysticks and buttons kit](http://www.arcadeoutlet.es/en/35-crea-tu-kit-de-joysticks) - **37,95€**
+* [Control panel wiring (4.8mm Fast-On connectors)](http://www.arcadeoutlet.es/es/cableado/49-cableado-panel-control-2015000009005.html#/medida_fast_on-conector_4_8mm) - **9,95€**
+* [Classic SNES USB controler (x2)](http://www.ebay.es/itm/Classic-Super-Nintendo-USB-Famicom-Color-SNES-SF-Controller-for-Windows-PC-MAC-/291190277567?ssPageName=ADME:L:OC:ES:3160) - **7,3€**
 
 ## Download RetroPie
 
