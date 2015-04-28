@@ -301,7 +301,7 @@ sudo ./retropie_setup.sh
 
 ![Xbox 360 controller](https://cloud.githubusercontent.com/assets/10035308/7111199/e29365ec-e179-11e4-87b4-f00685661d7e.png)
 
-*Images from [petrockblog's RetrPie Setup's Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
+*Images from [petrockblog's RetroPie Setup's Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
 
 ## Emulators and ROMs
 
