@@ -2,6 +2,24 @@
 
 > Work in progress
 
+* [Checklist](#checklist)
+* [Downaload RetroPie](#download-retropie)
+* [Flashing the SD card with ApplePi-Baker](#flashing-the-sd-card-with-applepi-baker)
+* [Setting up RetroPie](setting-up-retropie)
+	* [Expanding the Filesystem](#expanding-the-filesystem)
+	* [Setting up language and input](#setting-up-language-and-input)
+	* [Configuring the Raspberry Pi Wi-Fi](#configuring-the-raspberry-pi-wi-fi)
+* [Accessing the Raspberry Pi via SSH](#accessing-the-raspberry-pi-via-ssh)
+	* [Using the Terminal](#using-the-terminal)
+	* [Using Cyberduck (or any other FTP client)](#using-cyberduck-or-any-other-ftp-client)
+* [Wiring the joysticks and buttons](#wiring-the-joysticks-and-buttons)
+* [Setting up the arcade buttons](#setting-up-the-arcade-buttons)
+* [Configuring a USB controller](#configuring-a-usb-controller)
+	* [SNES controller](#snes-controller)
+	* [Xbox 360 controller](#xbox-360-controller)
+	* [PlayStation 3 controller](#playstation-3-controller)
+* [Emulators and ROMs](#emulators-and-roms)
+
 ## Checklist
 
 * 1 player GPIO arcade buttons &#x2713;
@@ -33,7 +51,7 @@
 * It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus. Use the keyboard for now.
 * But, **before proceeding any further**, let's back up a little and configure the Wi-Fi and other settings.
 
-## Expanding the Filesystem
+### Expanding the Filesystem
 
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
@@ -46,13 +64,13 @@ sudo raspi-config
 * It will open a basic GUI. 
 * Select **1 Expand Filesystem**. This will make all the SD card storage available for usage.
 
-## Setting up language and input
+### Setting up language and input
 
 * Still in the `raspi-config` screen, select **4 Internationalisation Options**.
 * Here you can change your locale, timezone and keyboard input.
 * When you're done, select **Finish** and reboot.
 
-## Configuring the Raspberry Pi Wi-Fi
+### Configuring the Raspberry Pi Wi-Fi
 
 * Boot the Raspberry Pi with the Wi-Fi adapter plugged in.
 * Quit Emulaton Station. It will take you to the command line.
@@ -145,7 +163,7 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 
 ## Setting up the arcade buttons
 
-Download [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame), a software that converts the GPIO into key strokes.
+Download [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame), a Raspberry Pi GPIO-to-USB utility for classic game emulators.
 
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
