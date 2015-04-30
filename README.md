@@ -8,7 +8,7 @@
 	* [Display](#display)
 	* [Controls](#controls) 
 * [Installing RetroPie](#installing-retropie)
-* [Flashing the SD card with ApplePi-Baker](#flashing-the-sd-card-with-applepi-baker)
+* [Flashing the SD card](#flashing-the-sd-card)
 * [Setting up RetroPie](setting-up-retropie)
 	* [Expanding the Filesystem](#expanding-the-filesystem)
 	* [Setting up language and input](#setting-up-language-and-input)
@@ -65,7 +65,9 @@
 * Flash de image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
 * [More info](http://elinux.org/RPi_Easy_SD_Card_Setup#Flashing_the_SD_card_using_Mac_OS_X) about flashing sd cards on OSX.
 
-## Flashing the SD card with ApplePi-Baker
+## Flashing the SD card
+
+We will be using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/).
 
 > Using another app like this one should be pretty similar to use.
 
