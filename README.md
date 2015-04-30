@@ -7,7 +7,7 @@
 	* [Internals](#internals)
 	* [Display](#display)
 	* [Controls](#controls) 
-* [Downaload RetroPie](#download-retropie)
+* [Installing RetroPie](#installing-retropie)
 * [Flashing the SD card with ApplePi-Baker](#flashing-the-sd-card-with-applepi-baker)
 * [Setting up RetroPie](setting-up-retropie)
 	* [Expanding the Filesystem](#expanding-the-filesystem)
@@ -31,7 +31,6 @@
 * 1 player USB controller &#x2713;
 * 2 players USB controller &#x2717;
 
-<<<<<<< Updated upstream
 ## Tools and materials
 
 *If there's no price it means that I didn't buy the item because I already had it.*
@@ -59,10 +58,7 @@
 * [Control panel wiring (4.8mm Fast-On connectors)](http://www.arcadeoutlet.es/es/cableado/49-cableado-panel-control-2015000009005.html#/medida_fast_on-conector_4_8mm) - **9,95€**
 * [Classic SNES USB controler (x2)](http://www.ebay.es/itm/Classic-Super-Nintendo-USB-Famicom-Color-SNES-SF-Controller-for-Windows-PC-MAC-/291190277567?ssPageName=ADME:L:OC:ES:3160) - **7,3€**
 
-## Download RetroPie
-=======
 ## Installing RetroPie
->>>>>>> Stashed changes
 
 * Download [RetroPie](http://blog.petrockblock.com/retropie/retropie-downloads/).
 * Extract the image. You will extract the downloaded `.gz` file and the extracted file will be a `.img` file.
@@ -305,11 +301,7 @@ sudo ./retropie_setup.sh
 
 ![Xbox 360 controller](https://cloud.githubusercontent.com/assets/10035308/7111199/e29365ec-e179-11e4-87b4-f00685661d7e.png)
 
-<<<<<<< Updated upstream
-*Images from [petrockblog's RetroPie Setup's Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
-=======
 *Images from [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
->>>>>>> Stashed changes
 
 ## Emulators and ROMs
 
