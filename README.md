@@ -31,6 +31,7 @@
 * 1 player USB controller &#x2713;
 * 2 players USB controller &#x2717;
 
+<<<<<<< Updated upstream
 ## Tools and materials
 
 *If there's no price it means that I didn't buy the item because I already had it.*
@@ -59,9 +60,12 @@
 * [Classic SNES USB controler (x2)](http://www.ebay.es/itm/Classic-Super-Nintendo-USB-Famicom-Color-SNES-SF-Controller-for-Windows-PC-MAC-/291190277567?ssPageName=ADME:L:OC:ES:3160) - **7,3€**
 
 ## Download RetroPie
+=======
+## Installing RetroPie
+>>>>>>> Stashed changes
 
-* Download [RetroPie Project SD-card Image for Raspberry Pi 1](http://blog.petrockblock.com/retropie/retropie-downloads/download-info/retropie-sd-card-image-for-rpi-version-1/) or [RetroPie Project SD-card Image for Raspberry Pi 2](http://blog.petrockblock.com/retropie/retropie-downloads/download-info/retropie-sd-card-image-for-rpi-version-2/).
-* Unzip the image.
+* Download [RetroPie](http://blog.petrockblock.com/retropie/retropie-downloads/).
+* Extract the image. You will extract the downloaded `.gz` file and the extracted file will be a `.img` file.
 * Flash de image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
 * [More info](http://elinux.org/RPi_Easy_SD_Card_Setup#Flashing_the_SD_card_using_Mac_OS_X) about flashing sd cards on OSX.
 
@@ -301,7 +305,11 @@ sudo ./retropie_setup.sh
 
 ![Xbox 360 controller](https://cloud.githubusercontent.com/assets/10035308/7111199/e29365ec-e179-11e4-87b4-f00685661d7e.png)
 
+<<<<<<< Updated upstream
 *Images from [petrockblog's RetroPie Setup's Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
+=======
+*Images from [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
+>>>>>>> Stashed changes
 
 ## Emulators and ROMs
 
@@ -313,3 +321,11 @@ sudo ./retropie_setup.sh
 ```
 sudo reboot
 ```
+
+## Credits
+
+Thanks a lot to the following projects/tutorials/people:
+
+* [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki)
+* [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame)
+* [element14](http://www.element14.com/)
