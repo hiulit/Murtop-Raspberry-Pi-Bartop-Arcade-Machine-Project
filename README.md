@@ -3,7 +3,7 @@
 > Work in progress
 
 * [Checklist](#checklist)
-* [Tools and materials](#tools-materials-hardware)
+* [Tool, materials and hardware](#tools-materials-hardware)
 	* [Internals](#internals)
 	* [Display](#display)
 	* [Controls](#controls) 
