@@ -3,7 +3,7 @@
 > Work in progress
 
 * [Checklist](#checklist)
-* [Tools and materials](#tools-and-materials)
+* [Tools and materials](#tools-materials-hardware)
 	* [Internals](#internals)
 	* [Display](#display)
 	* [Controls](#controls) 
@@ -31,7 +31,7 @@
 * 1 player USB controller &#x2713;
 * 2 players USB controller &#x2717;
 
-## Tools and materials
+## Tools, materials and hardware
 
 *If there's no price it means that I didn't buy the item because I already had it.*
 
@@ -287,7 +287,7 @@ sudo ./retropie_setup.sh
 * Select **Option 3 Setup**
 * Select **Option 317 Register RetroArch controller**
 * Follow the on screen directions. It will ask you to press all the buttons on your controller.
-* Just press the ones you need. Let the one you won't need to **timeout**.
+* Just press the ones you need. Let the ones you won't need to **timeout**.
 
 ### SNES controller
 
