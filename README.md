@@ -3,7 +3,7 @@
 > Work in progress
 
 * [Checklist](#checklist)
-* [Tool, materials and hardware](#tools-materials-hardware)
+* [Tool, materials and hardware](#tools-materials-and-hardware)
 	* [Internals](#internals)
 	* [Display](#display)
 	* [Controls](#controls) 
@@ -16,7 +16,9 @@
 * [Accessing the Raspberry Pi via SSH](#accessing-the-raspberry-pi-via-ssh)
 	* [Using the Terminal](#using-the-terminal)
 	* [Using Cyberduck (or any other FTP client)](#using-cyberduck-or-any-other-ftp-client)
-* [Wiring the joysticks and buttons](#wiring-the-joysticks-and-buttons)
+* [Joysticks and buttons](#joysticks-and-buttons) 
+	* [American push buttons](#american-push-buttons) 
+	* [Wiring](#wiring)
 * [Setting up the arcade buttons](#setting-up-the-arcade-buttons)
 * [Configuring a USB controller](#configuring-a-usb-controller)
 	* [SNES controller](#snes-controller)
@@ -102,7 +104,7 @@ sudo raspi-config
 
 * Still in the `raspi-config` screen, select **4 Internationalisation Options**.
 * Here you can change your locale, timezone and keyboard input.
-* When you're done, select **Finish** and reboot.
+* When you're done, select **Finish** and **reboot**.
 
 ### Configuring the Raspberry Pi Wi-Fi
 
@@ -175,7 +177,17 @@ ssh pi@your.raspberrypi.ip.address
 * Enter your username (**pi** by default) and password (**raspberry** by default).
 * Click **Connect**.
 
-## Wiring the joysticks and buttons
+## Joysticks and buttons
+
+### American push buttons
+
+![American push buttons](http://www.arcadeoutlet.es/51-large_default/boton-americano-28mm.jpg)
+
+![American push button 28mm](http://www.arcadeoutlet.es/82-large_default/boton-americano-28mm.jpg)
+
+*Images from [Arcade Outlet](http://www.arcadeoutlet.es/es/botones/11-boton-americano-28mm-2020000001003.html).*
+
+### Wiring
 
 With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfect for a 2 player bartop, including:
 
@@ -186,6 +198,8 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 * 2 pinball buttons.
 
 ![GPIO](img/GPIO.png)
+
+### 
 
 *Image from [element14](http://www.element14.com/).*
 
@@ -319,8 +333,9 @@ sudo reboot
 
 ## Credits
 
-Thanks a lot to the following projects/tutorials/people:
+Thanks a lot to the following projects/tutorials/people/shops:
 
 * [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki)
 * [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame)
 * [element14](http://www.element14.com/)
+* [Arcade Outlet](http://www.arcadeoutlet.es/)
