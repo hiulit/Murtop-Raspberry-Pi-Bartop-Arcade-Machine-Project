@@ -25,6 +25,11 @@
 	* [Xbox 360 controller](#xbox-360-controller)
 	* [PlayStation 3 controller](#playstation-3-controller)
 * [Emulators and ROMs](#emulators-and-roms)
+* [Credits](#credits)
+	* [Projects](#projects) 
+	* [Tutorials](#tutorials)
+	* [People](#people)
+	* [Shops](#shops)
 
 ## Checklist
 
@@ -291,6 +296,8 @@ sudo reboot
 
 ## Configuring a USB controller
 
+> **TL;DR** Here's a [Youtube video](https://www.youtube.com/watch?v=OBloKEbBRAU) explaining how to configure the USB controller.
+
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
 * Type:
@@ -333,9 +340,20 @@ sudo reboot
 
 ## Credits
 
-Thanks a lot to the following projects/tutorials/people/shops:
+Thanks a lot to the following:
+
+### Projects
 
 * [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki)
+
+### Tutorials
+
 * [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame)
-* [element14](http://www.element14.com/)
+
+### People
+
+* [Floob](https://www.youtube.com/watch?v=OBloKEbBRAU)
+
+### Shops
+
 * [Arcade Outlet](http://www.arcadeoutlet.es/)
