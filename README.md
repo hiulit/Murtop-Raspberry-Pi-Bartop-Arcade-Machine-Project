@@ -186,9 +186,9 @@ ssh pi@your.raspberrypi.ip.address
 
 ### American push buttons
 
-![American push buttons](http://www.arcadeoutlet.es/51-large_default/boton-americano-28mm.jpg)
+![American push buttons](img/arcade-outlet-american-push-button.jpg)
 
-![American push button 28mm](http://www.arcadeoutlet.es/82-large_default/boton-americano-28mm.jpg)
+![American push button plans](img/arcade-outlet-american-push-button-plans.jpg)
 
 *Images from [Arcade Outlet](http://www.arcadeoutlet.es/es/botones/11-boton-americano-28mm-2020000001003.html).*
 
