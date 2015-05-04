@@ -9,7 +9,7 @@
 	* [Controls](#controls) 
 * [Installing RetroPie](#installing-retropie)
 * [Flashing the SD card](#flashing-the-sd-card)
-* [Setting up RetroPie](setting-up-retropie)
+* [Setting up RetroPie](#setting-up-retropie)
 	* [Expanding the Filesystem](#expanding-the-filesystem)
 	* [Setting up language and input](#setting-up-language-and-input)
 	* [Configuring the Raspberry Pi Wi-Fi](#configuring-the-raspberry-pi-wi-fi)
