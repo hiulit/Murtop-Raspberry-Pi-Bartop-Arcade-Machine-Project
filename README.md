@@ -345,6 +345,7 @@ Thanks a lot to the following:
 ### Projects
 
 * [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki)
+* [3D Warehouse](https://3dwarehouse.sketchup.com/model.html?id=f94c70d445afb53a8c759df0d812057b)
 
 ### Tutorials
 
