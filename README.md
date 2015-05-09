@@ -6,7 +6,8 @@
 * [Tool, materials and hardware](#tools-materials-and-hardware)
 	* [Internals](#internals)
 	* [Display](#display)
-	* [Controls](#controls) 
+	* [Controls](#controls)
+	* [Cabinet](#cabinet)
 * [Installing RetroPie](#installing-retropie)
 * [Flashing the SD card](#flashing-the-sd-card)
 * [Setting up RetroPie](#setting-up-retropie)
@@ -65,6 +66,22 @@
 * [Control panel wiring (4.8mm Fast-On connectors)](http://www.arcadeoutlet.es/es/cableado/49-cableado-panel-control-2015000009005.html#/medida_fast_on-conector_4_8mm) - **9,95€**
 * [Classic SNES USB controler (x2)](http://www.ebay.es/itm/Classic-Super-Nintendo-USB-Famicom-Color-SNES-SF-Controller-for-Windows-PC-MAC-/291190277567?ssPageName=ADME:L:OC:ES:3160) - **7,3€**
 * USB keyboard and mouse (at least for initial the configuration)
+
+### Cabinet
+
+* 16mm MDF - **25€**
+* Pine lath 20x20mm **4,65€**
+* Brass piano hinge (x2) **3,9€**
+* Magnetic closure (x4) **2,4€**
+* Acrylic primer **6,1€**
+* Acrylic matte black paint **7,5€**
+* Wood glue **7,95€**
+
+### Total
+
+* **187,3€**
+
+*Take into account that we are building two cabinets at the same time so some materials are split and the prices might not be accurate.*
 
 ## Installing RetroPie
 
