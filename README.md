@@ -70,16 +70,17 @@
 ### Cabinet
 
 * 16mm MDF - **25€**
-* Pine lath 20x20mm **4,65€**
-* Brass piano hinge (x2) **3,9€**
-* Magnetic closure (x4) **2,4€**
-* Acrylic primer **6,1€**
-* Acrylic matte black paint **7,5€**
-* Wood glue **7,95€**
+* Pine lath 20x20mm - **4,65€**
+* Brass piano hinge (x2) - **3,9€**
+* Magnetic closure (x4) - **2,4€**
+* Acrylic primer - **6,1€**
+* Acrylic matte black paint - **7,5€**
+* Wood glue - **7,95€**
+* [16mm U-Molding 3m](http://www.arcadeoutlet.es/es/u-molding/152-u-molding-negro-2082000004002.html#) - **10,5€**
 
 ### Total
 
-* **187,3€**
+* **197,8€**
 
 *Take into account that we are building two cabinets at the same time so some materials are split and the prices might not be accurate.*
 
