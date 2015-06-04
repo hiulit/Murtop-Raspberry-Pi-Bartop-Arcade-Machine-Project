@@ -8,6 +8,7 @@
 	* [Display](#display)
 	* [Controls](#controls)
 	* [Cabinet](#cabinet)
+	* [Woodworking tools](#woodworking-tools)
 * [Installing RetroPie](#installing-retropie)
 * [Flashing the SD card](#flashing-the-sd-card)
 * [Setting up RetroPie](#setting-up-retropie)
@@ -77,6 +78,16 @@
 * Acrylic matte black paint - **7,5€**
 * Wood glue - **7,95€**
 * [16mm U-Molding 3m](http://www.arcadeoutlet.es/es/u-molding/152-u-molding-negro-2082000004002.html#) - **10,5€**
+
+### Woodworking tools
+
+* Screwdriver
+* Drill with ~28mm, ~12mm, and ~2mm bits
+* Clamps
+* Jigsaw
+* Sandpaper
+* Wood rasp
+* Paint roller and small brush
 
 ### Total
 
