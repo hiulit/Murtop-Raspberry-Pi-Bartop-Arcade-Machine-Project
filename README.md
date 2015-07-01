@@ -57,7 +57,7 @@
 
 ### Display
 
-* 21" LCD TFT monitor
+* 20" LCD TFT monitor
 * DVI cable
 * [DVI-D (female) to HDMI (male) adapter](http://www.amazon.es/dp/B009YCASUW/ref=pe_386191_41384461_TE_item) - **8,61€**
 
@@ -99,7 +99,7 @@
 
 * Download [RetroPie](http://blog.petrockblock.com/retropie/retropie-downloads/).
 * Extract the image. You will extract the downloaded `.gz` file and the extracted file will be a `.img` file.
-* Flash de image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
+* Flash the image *(see section below)* into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
 * [More info](http://elinux.org/RPi_Easy_SD_Card_Setup#Flashing_the_SD_card_using_Mac_OS_X) about flashing sd cards on OSX.
 
 ## Flashing the SD card
