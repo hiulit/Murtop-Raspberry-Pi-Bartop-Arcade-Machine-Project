@@ -79,6 +79,10 @@
 * Wood glue - **7,95€**
 * [16mm U-Molding 3m](http://www.arcadeoutlet.es/es/u-molding/152-u-molding-negro-2082000004002.html#) - **10,5€**
 
+### Marquee
+
+* [DIODER](http://ca.ikea.com/es/ca/catalog/products/40192361/) (IKEA Multicolor LED Stripes) - **29,99€**
+
 ### Woodworking tools
 
 * Screwdriver
@@ -91,7 +95,7 @@
 
 ### Total
 
-* **197,8€**
+* **227,79€**
 
 *Take into account that we are building two cabinets at the same time so some materials are split and the prices might not be accurate.*
 
