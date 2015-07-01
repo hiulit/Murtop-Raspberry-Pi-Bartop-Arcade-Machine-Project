@@ -166,7 +166,7 @@ iface wlan0 inet dhcp
         wpa-psk "password"
 ```
 
-* When you're finished, press `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then press `return` to save the file with the same name.
+* When you're finished, press `ctrl + x` *(exit)*. This will ask you if you want to save the modified file. Press `Y` *(yes)* and then press `return` to save the file with the same name.
 * Type:
 
 ```
