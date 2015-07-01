@@ -54,6 +54,7 @@
 	* HDMI Cable
 	* 8GB SD card
 	* Wi-Fi adapter (801.11n)
+* [Assembled Pi Cobbler Plus - Breakout Cable](http://www.amazon.es/gp/product/B00OKZIYOU?psc=1&redirect=true&ref_=oh_aui_detailpage_o02_s00) - **9,9€**
 
 ### Display
 
@@ -95,7 +96,7 @@
 
 ### Total
 
-* **227,79€**
+* **237,69€**
 
 *Take into account that we are building two cabinets at the same time so some materials are split and the prices might not be accurate.*
 
