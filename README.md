@@ -250,6 +250,7 @@ Download [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame),
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
 * Unzip `Adafruit-Retrogame.zip`.
+* Rename `Adafruit-Retrogame-master`folder to `Adafruit-Retrogame`.
 * Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
 * Copy the `Adafruit-Retrogame` folder into `/home/pi/` on your Raspberry Pi. 
 * Open a [Terminal session](#using-the-terminal) and type:
