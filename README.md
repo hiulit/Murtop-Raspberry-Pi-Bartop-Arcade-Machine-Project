@@ -36,8 +36,8 @@
 ## Checklist
 
 * 1 player GPIO arcade buttons &#x2713;
-* 2 players GPIO arcade buttons &#x2717;
 * 1 player USB controller &#x2713;
+* 2 players GPIO arcade buttons &#x2713;
 * 2 players USB controller &#x2717;
 
 ## Tools, materials and hardware
