@@ -167,7 +167,7 @@ iface wlan0 inet dhcp
 ```
 
 * When you're finished, press `ctrl + X` *(exit)*. It will ask you if you want to save the modified file. Type `Y` *(yes)* and then press `return` to save the file with the same name.
-* Type:
+* Now type:
 
 ```
 sudo reboot
@@ -321,6 +321,7 @@ ioStandard[] = {
     {  -1,     -1           } }; // END OF LIST, DO NOT CHANGE
 ```
 
+* When you're finished, press `ctrl + X` *(exit)*. It will ask you if you want to save the modified file. Type `Y` *(yes)* and then press `return` to save the file with the same name.
 * Now type:
 
 ```
@@ -339,14 +340,14 @@ sudo nano /etc/udev/rules.d/10-retrogame.rules
 SUBSYSTEM=="input", ATTRS{name}=="retrogame", ENV{ID_INPUT_KEYBOARD}="1"
 ```
 
-* When you're finished, press `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then press `return` to save the file with the same name.
+* When you're finished, press `ctrl + X` *(exit)*. It will ask you if you want to save the modified file. Type `Y` *(yes)* and then press `return` to save the file with the same name.
 * Let's see if it works. Type:
 
 ```
 sudo ./retrogame
 ```
 
-* If you don't get any error, it's working. Press `ctrl + c` to stop the program.
+* If you don't get any error, it's working! Yay! Press `ctrl + c` to stop the program.
 * To set it up to **launch at startup**, type:
 
 ```
@@ -359,12 +360,14 @@ sudo nano /etc/rc.local
 /home/pi/Adafruit-Retrogame/retrogame &
 ```
 
-* When you're finished, press `ctrl + x`. This will ask you if you want to save the modified file. Press `Y` and then press `return` to save the file with the same name.
-* Reboot the Raspberry Pi. Type:
+* When you're finished, press `ctrl + X` *(exit)*. It will ask you if you want to save the modified file. Type `Y` *(yes)* and then press `return` to save the file with the same name.
+* Now type:
 
 ```
 sudo reboot
 ```
+
+* This will reboot the Raspberry Pi.
 
 ## Configuring a USB controller
 
@@ -404,11 +407,13 @@ sudo ./retropie_setup.sh
 * Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
 * Go to `/home/pi/RetroPie/roms/`
 * Look for the emulator's folder corresponding to your ROM and copy it there.
-* Reboot the Raspberry Pi. Type:
+* Now type:
 
 ```
 sudo reboot
 ```
+
+* This will reboot the Raspberry Pi.
 
 ## Credits
 
