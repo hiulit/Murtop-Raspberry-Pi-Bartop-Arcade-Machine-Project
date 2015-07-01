@@ -98,8 +98,8 @@
 ## Installing RetroPie
 
 * Download [RetroPie](http://blog.petrockblock.com/retropie/retropie-downloads/).
-* Extract the image. You will extract the downloaded `.gz` file and the extracted file will be a `.img` file.
-* Flash the image *(see section below)* into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
+* Extract the downloaded compressed (`.gz`) file. The extracted file will be an image (`.img`) file.
+* Flash the image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
 * [More info](http://elinux.org/RPi_Easy_SD_Card_Setup#Flashing_the_SD_card_using_Mac_OS_X) about flashing sd cards on OSX.
 
 ## Flashing the SD card
