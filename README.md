@@ -83,6 +83,7 @@
 ### Marquee
 
 * [DIODER](http://ca.ikea.com/es/ca/catalog/products/40192361/) (IKEA Multicolor LED Stripes) - **29,99€**
+* [USB mini stereo speakers](http://www.amazon.es/gp/product/B006L3ZUI2?psc=1&redirect=true&ref_=oh_aui_detailpage_o03_s00) - **6,1€*
 
 ### Woodworking tools
 
@@ -96,7 +97,7 @@
 
 ### Total
 
-* **237,69€**
+* **243,79€**
 
 *Take into account that we are building two cabinets at the same time so some materials are split and the prices might not be accurate.*
 
