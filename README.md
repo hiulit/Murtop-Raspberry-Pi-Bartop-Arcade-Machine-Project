@@ -279,6 +279,48 @@ ioStandard[] = {
 ```
 
 * Change it to fit.
+* Here it is our 2 players set up:
+
+```
+ioStandard[] = {
+    // This pin/key table is used when the PiTFT isn't found
+    // (using HDMI or composite instead), as with our original
+    // retro gaming guide.
+    // Input   Output (from /usr/include/linux/input.h)
+	//
+	// PLAYER 1
+    {   7,     KEY_LEFT     },
+    {  20,     KEY_RIGHT    },
+    {  21,     KEY_UP       },
+    {  16,     KEY_DOWN     },
+	{   8,	   KEY_A		}, // Green
+	{  25,	   KEY_Z		}, // Yellow
+	{  18,	   KEY_X		}, // Red
+	{  15,	   KEY_S		}, // Blue
+	{  14,	   KEY_W		}, // White
+	{  26,	   KEY_Q		}, // Black
+	{   3,	   KEY_xx		}, // 1 Player
+
+	{  24,	   KEY_ENTER	},
+	{  23,	   KEY_EXIT		},
+
+	// PLAYER 2
+    {  13,     KEY_LEFT     },
+    {  20,     KEY_RIGHT    },
+    {   6,     KEY_UP       },
+    {  11,     KEY_DOWN     },
+	{  10,	   KEY_A		}, // Green
+	{   9,	   KEY_Z		}, // Yellow
+	{  27,	   KEY_X		}, // Red
+	{  22,	   KEY_S		}, // Blue
+	{   4,	   KEY_W		}, // White
+	{  17,	   KEY_Q		}, // Black
+	{   2,	   KEY_xx		}, // 2 Players
+
+    // For credit/start/etc., use USB keyboard or add more buttons.
+    {  -1,     -1           } }; // END OF LIST, DO NOT CHANGE
+```
+
 * Now type:
 
 ```
