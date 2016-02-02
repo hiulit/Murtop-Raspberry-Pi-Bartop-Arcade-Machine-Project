@@ -217,6 +217,10 @@ ssh pi@your.raspberrypi.ip.address
 * Enter your username (**pi** by default) and password (**raspberry** by default).
 * Click **Connect**.
 
+## Building the cabinet
+
+
+
 ## Joysticks and buttons
 
 ### American push buttons
