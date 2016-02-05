@@ -114,10 +114,10 @@ We will be using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-
 
 > Using another app like this one should be pretty similar to use.
 
-* Select the SD card. ![Select the SD card.](img/ApplePi-Baker-01.png)
-* Select the image (`.img`) file you just downloaded. ![Select the .img.](img/ApplePi-Baker-02.png)
-* Restore backup. ![Restore backup.](img/ApplePi-Baker-03.png)
-* Finished! :D ![Finished! :D](img/ApplePi-Baker-04.png)
+* Select the SD card. ![Select the SD card.](assets/images/ApplePi-Baker-01.png)
+* Select the image (`.img`) file you just downloaded. ![Select the .img.](assets/images/ApplePi-Baker-02.png)
+* Restore backup. ![Restore backup.](assets/images/ApplePi-Baker-03.png)
+* Finished! :D ![Finished! :D](assets/images/ApplePi-Baker-04.png)
 * Safely eject the SD card using the **Utility Disks** app.
 
 ## Setting up RetroPie
@@ -225,9 +225,9 @@ ssh pi@your.raspberrypi.ip.address
 
 ### American push buttons
 
-![American push buttons](img/arcade-outlet-american-push-button.jpg)
+![American push buttons](assets/images/arcade-outlet-american-push-button.jpg)
 
-![American push button plans](img/arcade-outlet-american-push-button-plans.jpg)
+![American push button plans](assets/images/arcade-outlet-american-push-button-plans.jpg)
 
 *Images from [Arcade Outlet](http://www.arcadeoutlet.es/es/botones/11-boton-americano-28mm-2020000001003.html).*
 
@@ -241,15 +241,15 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 * 2 service buttons
 * 2 pinball buttons.
 
-![GPIO](img/GPIO.png)
+![GPIO](assets/images/GPIO.png)
 
 ### 
 
 *Image from [element14](http://www.element14.com/).*
 
-![Wiring-01](img/Wiring-01.jpg)
+![Wiring-01](assets/images/Wiring-01.jpg)
 
-![Wiring-02.](img/Wiring-02.jpg)
+![Wiring-02.](assets/images/Wiring-02.jpg)
 
 *My humble scaffold for the controller.*
 
