@@ -1,4 +1,4 @@
-# Raspberry Pi Bartop Arcade Machine Project
+# Murtop - Raspberry Pi Bartop Arcade Machine Project
 
 > Work in progress
 
