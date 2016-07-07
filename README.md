@@ -103,7 +103,7 @@
 
 ## Installing RetroPie
 
-* Download [RetroPie](http://blog.petrockblock.com/retropie/retropie-downloads/).
+* Download [RetroPie](https://retropie.org.uk/download/).
 * Extract the downloaded compressed (`.gz`) file. The extracted file will be an image (`.img`) file.
 * Flash the image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
 * [More info](http://elinux.org/RPi_Easy_SD_Card_Setup#Flashing_the_SD_card_using_Mac_OS_X) about flashing sd cards on OSX.
@@ -239,7 +239,7 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 * 12 action buttons
 * 2 players buttons
 * 2 service buttons
-* 2 pinball buttons.
+* 2 pinball buttons (which we won't be using)
 
 ![GPIO](assets/images/GPIO.png)
 
@@ -344,7 +344,7 @@ make retrogame
 sudo nano /etc/udev/rules.d/10-retrogame.rules
 ```
 
-* And copy:
+* And copy & paste:
 
 ```
 SUBSYSTEM=="input", ATTRS{name}=="retrogame", ENV{ID_INPUT_KEYBOARD}="1"
