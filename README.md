@@ -196,6 +196,14 @@ hostname -I
 
 * It does the same thing ;)
 
+## Customizing RetroPie
+
+### Installing Pixel theme
+
+* Go to the Retropie settings
+* Go to ES Themes
+* Install Pixel theme
+
 ## Accessing the Raspberry Pi via SSH
 
 ### Using the Terminal
@@ -426,14 +434,31 @@ sudo reboot
 
 * This will reboot the Raspberry Pi.
 
+## Installing GameMaker games
+
+[YoYo Games](http://www.yoyogames.com/), the people behind [GameMaker](http://www.yoyogames.com/gamemaker) (a platform to develop video games), have been kind enough to port three indie games for the Raspberry Pi.
+
+So, let's begin!
+
+* [Download](http://www.yoyogames.com/pi) the games from their website.
+* Unzip them.
+* Copy the folder of each game into `/home/pi/RetroPie/roms/ports/`.
+* [Download](https://github.com/bite-your-idols/gamemaker-retropie/archive/master.zip) the `.sh` files needed to run the games.
+* Unzip the folder and copy the `.sh` into the same folder `/home/pi/RetroPie/roms/ports/`.
+* Change the `read` and `execute` permission of the `.sh` files.
+* Restar EmulationStation.
+
+The GameMaker games will appear on the `ports` section.
+
 ## Credits
 
 Thanks a lot to the following:
 
 ### Projects
 
-* [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki)
+* [RetroPie Wiki](https://github.com/retropie/retropie-setup/wiki)
 * [3D Warehouse](https://3dwarehouse.sketchup.com/model.html?id=f94c70d445afb53a8c759df0d812057b)
+* [GameMaker games for the Raspberry Pi](http://www.yoyogames.com/pi) and [GameMaker for Retropie](https://github.com/bite-your-idols/gamemaker-retropie)
 
 ### Tutorials
 
