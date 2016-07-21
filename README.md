@@ -79,6 +79,7 @@
 * Acrylic matte black paint - **7,5€**
 * Wood glue - **7,95€**
 * [16mm U-Molding 3m](http://www.arcadeoutlet.es/es/u-molding/152-u-molding-negro-2082000004002.html#) - **10,5€**
+* [19mm U-Molding 1m](http://www.arcadeoutlet.es/es/u-molding/152-u-molding-negro-2082000004002.html#) - **3,5€**
 
 ### Marquee
 
