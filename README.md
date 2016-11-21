@@ -17,6 +17,7 @@
 	* [Configuring the Raspberry Pi Wi-Fi](#configuring-the-raspberry-pi-wi-fi)
 * [Customizing RetroPie](#customizing-retropie)
 	* [Installing Pixel theme](#installing-pixel-theme)
+	* [Replacing Runcommand System Splashscreens](#replacing-runcommand-system-splashscreens)
 * [Accessing the Raspberry Pi via SSH](#accessing-the-raspberry-pi-via-ssh)
 	* [Using the Terminal](#using-the-terminal)
 	* [Using Cyberduck (or any other FTP client)](#using-cyberduck-or-any-other-ftp-client)
@@ -131,7 +132,11 @@ We will be using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-
 * It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus. Use the keyboard for now.
 * But, **before proceeding any further**, let's back up a little and configure the Wi-Fi and other settings.
 
+*All the configurations below can be done in a more user-friendly way via the Retropie Settings Menu in EmulationStation.*
+
 ### Expanding the Filesystem
+
+* I think the latest versions of Retropie just expand the Filesystem automatically right after you boot the Raspberry Pi for the first time, but just in case it doesn't do it, here's a manual method:
 
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
@@ -203,9 +208,21 @@ hostname -I
 
 ### Installing Pixel theme
 
-* Go to the Retropie settings
-* Go to ES Themes
-* Install Pixel theme
+* Go to the `Retropie settings` in EmulationStation.
+* Go to `ES Themes`.
+* Install `Pixel theme`.
+
+### Replacing Runcommand System Splashcreens
+
+*These splashcreens are designed to be used along with the Pixel theme.*
+
+* [Download](https://dl.dropboxusercontent.com/u/60872572/EmulationStation/Pixel/Pixel_RunCommand_Wallpapers/launching.zip) the splashscreens.
+* Unzip `launching.zip` and you'll see folders for each emulator.
+* Inside each folder there's a `launching.png` file. You have to place them in `opt/retropie/config/`.
+* There are a couple of exceptions:
+	* Megadrive and Genesis share the same folder so you'll have to choose which one to use. If you choose the `launching-megadrive.png` remember to rename it to `launching.png` before placing it in `opt/retropie/config/`
+	* Same for the SNES.
+
 
 ## Accessing the Raspberry Pi via SSH
 
@@ -452,6 +469,8 @@ So, let's begin!
 * Restar EmulationStation.
 
 The GameMaker games will appear on the `ports` section.
+
+*One major caveat is that these ports only seem to work when using a gamepad.*
 
 ## Credits
 
