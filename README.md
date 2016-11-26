@@ -108,6 +108,8 @@
 
 ## Installing RetroPie
 
+*You can also follow the official Retropie Wiki [First installation](https://github.com/retropie/retropie-setup/wiki/First-Installation) guide.*
+
 * Download [RetroPie](https://retropie.org.uk/download/).
 * Extract the downloaded compressed (`.gz`) file. The extracted file will be an image (`.img`) file.
 * Flash the image into an SD card using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/) or [RPi-sd card builder](https://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/).
@@ -132,11 +134,11 @@ We will be using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-
 * It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus. Use the keyboard for now.
 * But, **before proceeding any further**, let's back up a little and configure the Wi-Fi and other settings.
 
-*All the configurations below can be done in a more user-friendly way via the Retropie Settings Menu in EmulationStation.*
+*All the configurations below can be done in a more user-friendly way via the Retropie Settings Menu in EmulationStation (e.g. Configuring the Wi-Fi).*
 
 ### Expanding the Filesystem
 
-* I think the latest versions of Retropie just expand the Filesystem automatically right after you boot the Raspberry Pi for the first time, but just in case it doesn't do it, here's a manual method:
+I think the latest versions of Retropie just expand the Filesystem automatically right after you boot the Raspberry Pi for the first time, but just in case it doesn't do it, here's a manual method:
 
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
@@ -212,16 +214,67 @@ hostname -I
 * Go to `ES Themes`.
 * Install `Pixel theme`.
 
-### Replacing Runcommand System Splashcreens
+#### Replacing the Retropie Settings icons
+
+*These icons are designed to be used along with the Pixel theme.*
+
+When you install the Pixel theme, you can see right away how the icons in the Retropie Settings doesn't fit at all with the rest of the theme. Luckily, the Pixel theme comes with its own set of pixelated icons for the Retropie Settings. Let's change them!
+
+* Quit EmulationStation.
+	* When in EmulationStation, go to `Main Menu > Quit > Quit EmulationStation`.
+	* You'll be taken to the command line.
+* [Access the Raspberry Pi via SSH](#access-the-raspberry-pi-via-ssh).
+* Go to `/opt/retropie/configs/all/emulationstation/gamelists/retropie/gamelist.xml` and edit it.
+* Change all the `<image>` tags paths (e.g. `<image>./icons/esthemes.png</image>`) from `./icons/` to `/etc/emulationstation/themes/pixel/retropie/icons/`.
+* Restart EmulationStation from the command line typing `emulationstation` and hitting `enter`.
+* Enjoy your *now-matching* Retropie Settings icons!
+
+### Replacing runcommand system splashcreens
 
 *These splashcreens are designed to be used along with the Pixel theme.*
 
 * [Download](https://dl.dropboxusercontent.com/u/60872572/EmulationStation/Pixel/Pixel_RunCommand_Wallpapers/launching.zip) the splashscreens.
-* Unzip `launching.zip` and you'll see folders for each emulator.
-* Inside each folder there's a `launching.png` file. You have to place them in `opt/retropie/config/`.
+* Unzip `launching.zip`. You'll see folders for each emulator.
+* Inside each folder there's a `launching.png` file. You have to place them in `opt/retropie/config/` inside the emulator folder you want the splashscreen to be shown.
 * There are a couple of exceptions:
 	* Megadrive and Genesis share the same folder so you'll have to choose which one to use. If you choose the `launching-megadrive.png` remember to rename it to `launching.png` before placing it in `opt/retropie/config/`
 	* Same for the SNES.
+* Go the `Retropie Settings` in EmulationStation and choose `Retropie Setup`.
+* This will take you to the configuration GUI.
+* Select `Configuration / tools`.
+* Select `runcommand - The 'runcommand' launch script ...`.
+* **Enable** `Launch menu`.
+* **Disable** `Launch menu art`.
+* Restart EmulationStation.
+
+## Adding a retro style to the games
+
+### Pixelating the games
+
+Let's give the games a more retro style, kind of the look as if you were playing on an old CRT.
+We'll deactivate the video smoothness and we'll add some scanlines.
+
+#### Not libretro/RetroArch emulators
+
+`mame4all` and `pifba` (which are the best MAME emulators for Raspberry Pi 0/1) are not libretro/Retroarch emulators, so you'll have to configure them separately.
+
+##### Mame4all
+
+* Edit `/opt/retropie/configs/mame-mame4all/mame.cfg`.
+* Go to the bottom of the `[config]` section.
+* Change `display_smooth_stretch=yes` to `display_smooth_stretch=no` to deactivate the smoothness of the image.
+* Change `display_effect=0` to `display_effect=1` to activate scanlines.
+
+##### PiFBA
+
+* Edit `/opt/retropie/configs/fba/fba2x.cfg`.
+* Go to the bottom of the file, where `[Graphics]`  section starts.
+* Change `DisplaySmoothStretch=1` to `DisplaySmoothStretch=0` to deactivate the smoothness of the image.
+* Change `DisplayEffect=0` to `DisplayEffect=1` to activate scanlines.
+
+#### Libretro/RetroArch emulators
+
+### Addind scanlines
 
 
 ## Accessing the Raspberry Pi via SSH
