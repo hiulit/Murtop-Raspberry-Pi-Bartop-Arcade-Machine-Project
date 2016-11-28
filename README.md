@@ -226,7 +226,7 @@ When you install the Pixel theme, you can see right away how the icons in the Re
 * [Access the Raspberry Pi via SSH](#access-the-raspberry-pi-via-ssh).
 * Go to `/opt/retropie/configs/all/emulationstation/gamelists/retropie/gamelist.xml` and edit it.
 * Change all the `<image>` tags paths (e.g. `<image>./icons/esthemes.png</image>`) from `./icons/` to `/etc/emulationstation/themes/pixel/retropie/icons/`.
-* Restart EmulationStation from the command line typing `emulationstation` and hitting `enter`.
+* Restart EmulationStation from the command line by typing `emulationstation` and hitting `enter`.
 * Enjoy your *now-matching* Retropie Settings icons!
 
 ### Replacing runcommand system splashcreens
