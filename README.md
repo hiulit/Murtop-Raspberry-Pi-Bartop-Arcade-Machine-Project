@@ -229,9 +229,9 @@ When you install the Pixel theme, you can see right away how the icons in the Re
 * Restart EmulationStation from the command line by typing `emulationstation` and hitting `enter`.
 * Enjoy your *now-matching* Retropie Settings icons!
 
-### Replacing runcommand system splashcreens
+### Replacing Runcommand System splashscreens
 
-*These splashcreens are designed to be used along with the Pixel theme.*
+*These splashscreens are designed to be used along with the Pixel theme.*
 
 * [Download](https://dl.dropboxusercontent.com/u/60872572/EmulationStation/Pixel/Pixel_RunCommand_Wallpapers/launching.zip) the splashscreens.
 * Unzip `launching.zip`. You'll see folders for each emulator.
