@@ -31,6 +31,7 @@
 	* [PlayStation 3 controller](#playstation-3-controller)
 * [Emulators and ROMs](#emulators-and-roms)
 * [Installing GameMaker games](#installing-gamemaker-games)
+* [Troubleshooting](#troubleshooting)
 * [Credits](#credits)
 	* [Projects](#projects) 
 	* [Tutorials](#tutorials)
@@ -524,6 +525,10 @@ So, let's begin!
 The GameMaker games will appear on the `ports` section.
 
 *One major caveat is that these ports only seem to work when using a gamepad.*
+
+## Troubleshooting
+
+* [Sound issues](https://github.com/retropie/retropie-setup/wiki/sound-issues).
 
 ## Credits
 
