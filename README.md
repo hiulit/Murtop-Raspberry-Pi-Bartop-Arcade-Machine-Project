@@ -169,7 +169,7 @@ The latest versions of RetroPie have a built-in Wi-Fi configurator.
 
 * In EmulationStation, go to `RetroPie Settings > Wi-Fi`.
 * Choose `Connect to Wi-Fi network`.
-* Select the network you want to connect to and enter the password.
+* Select the network you would like to connect to and enter the password.
 
 If this method doesn't work, here's a manual method that should work.
 
