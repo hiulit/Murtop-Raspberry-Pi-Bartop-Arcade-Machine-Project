@@ -17,7 +17,9 @@
 	* [Configuring the Raspberry Pi Wi-Fi](#configuring-the-raspberry-pi-wi-fi)
 * [Customizing RetroPie](#customizing-retropie)
 	* [Installing Pixel theme](#installing-pixel-theme)
-	* [Replacing Runcommand System Splashscreens](#replacing-runcommand-system-splashscreens)
+		* [Replacing the RetroPie splash screen](#replacing-the-retropie-splash-screen)
+		* [Replacing the RetroPie Settings icons](#replacing-the-retropie-settings-icons)
+		* [Replacing Runcommand System Splash Screens](#replacing-runcommand-system-splash-screens)
 * [Accessing the Raspberry Pi via SSH](#accessing-the-raspberry-pi-via-ssh)
 	* [Using the Terminal](#using-the-terminal)
 	* [Using Cyberduck (or any other FTP client)](#using-cyberduck-or-any-other-ftp-client)
@@ -31,6 +33,7 @@
 	* [PlayStation 3 controller](#playstation-3-controller)
 * [Emulators and ROMs](#emulators-and-roms)
 * [Installing GameMaker games](#installing-gamemaker-games)
+* [Configure Retroarch](#configure-retroarch)
 * [Troubleshooting](#troubleshooting)
 * [Credits](#credits)
 	* [Projects](#projects) 
@@ -211,11 +214,31 @@ hostname -I
 
 ### Installing Pixel theme
 
-* Go to the `Retropie settings` in EmulationStation.
+* Go to the `Retropie Settings` in EmulationStation.
 * Go to `ES Themes`.
 * Install `Pixel theme`.
+* In EmulationStation, go to `Main Menu > UI Settings > Theme Set` and choose `Pixel`.
 
-#### Replacing the Retropie Settings icons
+#### Replacing the RetroPie splash screen
+
+* Go to the `Retropie Settings` in EmulationStation.
+* Go to `Splash Screens`.
+* Choose `Download RetroPie-Extra splashscresns`.
+* Go to `Choose splashscreen` and then `Own/extra splashscreens`.
+* Scroll down until you see `retropie-extra/rookervik-pixel/pixel.png` (for 16:9 screens) or `retropie-extra/rookervik-pixel/pixel-4x3.png` (for 4:3 screens).
+* Reboot the see the new splash screen.
+
+**Update:**
+
+To get the latest splash screens for the Pixel theme:
+
+* Download the splash screens ([for 16:9 screens](https://raw.githubusercontent.com/RetroPie/es-theme-pixel/master/splash16-9.png) and [for 4:3 screens](https://raw.githubusercontent.com/RetroPie/es-theme-pixel/master/splash4-3.png)) directly from GitHub.
+* Access the Raspberry Pi by [Using Cyberduck (or any other FTP client)](#using-cyberduck-or-any-other-ftp-client).
+* Go to `/home/pi/RetroPie/splashscreens/` and copy them here.
+* It would be a good idea to rename them, by adding a prefix like `pixel-`, to avoid confusions with other splash screens you may have here in the future.
+* Follow the steps above this update and when you are at `Own/extra splashscreens` you can choose the splash screen that you like.
+
+#### Replacing the RetroPie Settings icons
 
 *These icons are designed to be used along with the Pixel theme.*
 
@@ -224,19 +247,19 @@ When you install the Pixel theme, you can see right away how the icons in the Re
 * Quit EmulationStation.
 	* When in EmulationStation, go to `Main Menu > Quit > Quit EmulationStation`.
 	* You'll be taken to the command line.
-* [Access the Raspberry Pi via SSH](#access-the-raspberry-pi-via-ssh).
+* [Access the Raspberry Pi via SSH](#access-the-raspberry-pi-via-ssh) or by [Using Cyberduck (or any other FTP client)](#using-cyberduck-or-any-other-ftp-client).
 * Go to `/opt/retropie/configs/all/emulationstation/gamelists/retropie/gamelist.xml` and edit it.
 * Change all the `<image>` tags paths (e.g. `<image>./icons/esthemes.png</image>`) from `./icons/` to `/etc/emulationstation/themes/pixel/retropie/icons/`.
 * Restart EmulationStation from the command line by typing `emulationstation` and hitting `enter`.
 * Enjoy your *now-matching* Retropie Settings icons!
 
-### Replacing Runcommand System splashscreens
+### Replacing Runcommand System splash screens
 
-*These splashscreens are designed to be used along with the Pixel theme.*
+*These splash screens are designed to be used along with the Pixel theme.*
 
-* [Download](https://dl.dropboxusercontent.com/u/60872572/EmulationStation/Pixel/Pixel_RunCommand_Wallpapers/launching.zip) the splashscreens.
+* [Download](https://dl.dropboxusercontent.com/u/60872572/EmulationStation/Pixel/Pixel_RunCommand_Wallpapers/launching.zip) the splash screens.
 * Unzip `launching.zip`. You'll see folders for each emulator.
-* Inside each folder there's a `launching.png` file. You have to place them in `opt/retropie/config/` inside the emulator folder you want the splashscreen to be shown.
+* Inside each folder there's a `launching.png` file. You have to place them in `opt/retropie/config/` inside the emulator folder you want the splash screen to be shown.
 * There are a couple of exceptions:
 	* Megadrive and Genesis share the same folder so you'll have to choose which one to use. If you choose the `launching-megadrive.png` remember to rename it to `launching.png` before placing it in `opt/retropie/config/`
 	* Same for the SNES.
@@ -525,6 +548,10 @@ So, let's begin!
 The GameMaker games will appear on the `ports` section.
 
 *One major caveat is that these ports only seem to work when using a gamepad.*
+
+## Configure Retroarch
+
+
 
 ## Troubleshooting
 
