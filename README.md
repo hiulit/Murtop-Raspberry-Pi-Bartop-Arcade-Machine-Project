@@ -145,7 +145,7 @@ We will be using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-
 I think the latest versions of RetroPie just expand the Filesystem automatically right after you boot the Raspberry Pi for the first time, but just in case it doesn't do it, here's a manual method:
 
 * Boot the Raspberry Pi.
-* Quit Emulation Station. It will take you to the command line.
+* Quit EmulationStation. It will take you to the command line.
 * Type:
 
 ```
@@ -167,12 +167,14 @@ sudo raspi-config
 
 The latest versions of RetroPie have a built-in Wi-Fi configurator.
 
-* Go
+* In EmulationStation, go to `RetroPie Settings > Wi-Fi`.
+* Choose `Connect to Wi-Fi network`.
+* Select the network you want to connect to and enter the password.
 
 If this method doesn't work, here's a manual method that should work.
 
 * Boot the Raspberry Pi with the Wi-Fi adapter plugged in (or not, if you are a proud owner of a Raspberry Pi 3!).
-* Quit Emulaton Station. It will take you to the command line.
+* Quit EmulationStation. It will take you to the command line.
 * Type:
 
 ```
@@ -373,7 +375,7 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 Download [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame), a Raspberry Pi GPIO-to-USB utility for classic game emulators.
 
 * Boot the Raspberry Pi.
-* Quit Emulation Station. It will take you to the command line.
+* Quit EmulationStation. It will take you to the command line.
 * Unzip `Adafruit-Retrogame-master.zip`.
 * Rename `Adafruit-Retrogame-master` folder to `Adafruit-Retrogame`.
 * Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
@@ -499,7 +501,7 @@ sudo reboot
 > **TL;DR** Here's a [Youtube video](https://www.youtube.com/watch?v=OBloKEbBRAU) explaining how to configure the USB controller.
 
 * Boot the Raspberry Pi.
-* Quit Emulation Station. It will take you to the command line.
+* Quit EmulationStation. It will take you to the command line.
 * Type:
 
 ```
