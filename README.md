@@ -142,7 +142,7 @@ We will be using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-
 
 ### Expanding the Filesystem
 
-I think the latest versions of Retropie just expand the Filesystem automatically right after you boot the Raspberry Pi for the first time, but just in case it doesn't do it, here's a manual method:
+I think the latest versions of RetroPie just expand the Filesystem automatically right after you boot the Raspberry Pi for the first time, but just in case it doesn't do it, here's a manual method:
 
 * Boot the Raspberry Pi.
 * Quit Emulation Station. It will take you to the command line.
@@ -163,7 +163,15 @@ sudo raspi-config
 
 ### Configuring the Raspberry Pi Wi-Fi
 
-* Boot the Raspberry Pi with the Wi-Fi adapter plugged in.
+> If you have a Raspberry Pi 3, good for you! Because you won't need a Wi-Fi adapter ;)
+
+The latest versions of RetroPie have a built-in Wi-Fi configurator.
+
+* Go
+
+If this method doesn't work, here's a manual method that should work.
+
+* Boot the Raspberry Pi with the Wi-Fi adapter plugged in (or not, if you are a proud owner of a Raspberry Pi 3!).
 * Quit Emulaton Station. It will take you to the command line.
 * Type:
 
@@ -195,7 +203,8 @@ sudo reboot
 ```
 
 * This will reboot the Raspberry Pi.
-* To check if the Wi-Fi is working, go to the command line again and type:
+* To check if the Wi-Fi is working, go to `Retropie Settings > Show IP`.
+* If this doesn't work, go to the command line again and type:
 
 ```
 sudo ip addr show
