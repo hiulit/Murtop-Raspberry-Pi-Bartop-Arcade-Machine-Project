@@ -205,7 +205,7 @@ sudo reboot
 ```
 
 * This will reboot the Raspberry Pi.
-* To check if the Wi-Fi is working, go to `Retropie Settings > Show IP`.
+* To check if the Wi-Fi is working, in EmulationStation, go to `Retropie Settings > Show IP`.
 * If this doesn't work, go to the command line again and type:
 
 ```
@@ -225,6 +225,8 @@ hostname -I
 
 ### Installing Pixel theme
 
+> For me, the best theme there is! :D Thanks and congratulations to [Rookervik](https://retropie.org.uk/forum/topic/768/pixel-theme).
+
 * Go to the `Retropie Settings` in EmulationStation.
 * Go to `ES Themes`.
 * Install `Pixel theme`.
@@ -237,9 +239,10 @@ hostname -I
 * Choose `Download RetroPie-Extra splashscresns`.
 * Go to `Choose splashscreen` and then `Own/extra splashscreens`.
 * Scroll down until you see `retropie-extra/rookervik-pixel/pixel.png` (for 16:9 screens) or `retropie-extra/rookervik-pixel/pixel-4x3.png` (for 4:3 screens).
+* Choose one.
 * Reboot the see the new splash screen.
 
-**Update:**
+**Update!**
 
 To get the latest splash screens for the Pixel theme:
 
@@ -247,7 +250,9 @@ To get the latest splash screens for the Pixel theme:
 * Access the Raspberry Pi by [Using Cyberduck (or any other FTP client)](#using-cyberduck-or-any-other-ftp-client).
 * Go to `/home/pi/RetroPie/splashscreens/` and copy them here.
 * It would be a good idea to rename them, by adding a prefix like `pixel-`, to avoid confusions with other splash screens you may have here in the future.
-* Follow the steps above this update and when you are at `Own/extra splashscreens` you can choose the splash screen that you like.
+* Follow the steps above this update and when you are at `Own/extra splashscreens` you'll see the two splash screens that we just copied.
+* Choose one.
+* Reboot the see the new splash screen.
 
 #### Replacing the RetroPie Settings icons
 
@@ -580,14 +585,17 @@ Thanks a lot to the following:
 
 ### Tutorials
 
-* [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame)
+Above all, thanks a lot to the [Retropie Forum](https://retropie.org.uk/forum).
+
+* [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame) - Raspberry Pi GPIO-to-virtual-keyboard utility for classic game emulators.
 * [2-Player Bartop Arcade Machine (Powered by Pi)](http://www.instructables.com/id/2-Player-Bartop-Arcade-Machine-Powered-by-Pi/?ALLSTEPS)
 * [Zona Arcade Forums](http://zonaarcade.forumcommunity.net/)
 
 ### People
 
 * [Floob](https://www.youtube.com/watch?v=OBloKEbBRAU)
+* [Rookervik](https://retropie.org.uk/forum/topic/768/pixel-theme) - For creating the amazing Pixel theme for RetroPie.
 
 ### Shops
 
-* [Arcade Outlet](http://www.arcadeoutlet.es/)
+* [Arcade Outlet](http://www.arcadeoutlet.es/) - Spanish webstore to buy anything arcade related.
