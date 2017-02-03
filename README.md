@@ -31,6 +31,7 @@
 	* [SNES controller](#snes-controller)
 	* [Xbox 360 controller](#xbox-360-controller)
 	* [PlayStation 3 controller](#playstation-3-controller)
+* [Configuring an 8Bitdo gamepad](#configuring-an-8Bitdo-gamepad)
 * [Emulators and ROMs](#emulators-and-roms)
 * [Installing GameMaker games](#installing-gamemaker-games)
 * [Configure Retroarch](#configure-retroarch)
@@ -503,22 +504,7 @@ sudo reboot
 
 ## Configuring a USB controller
 
-> **TL;DR** Here's a [Youtube video](https://www.youtube.com/watch?v=OBloKEbBRAU) explaining how to configure the USB controller.
-
-* Boot the Raspberry Pi.
-* Quit EmulationStation. It will take you to the command line.
-* Type:
-
-```
-cd RetroPie-Setup
-sudo ./retropie_setup.sh
-```
-
-* It will open a basic GUI.
-* Select **Option 3 Setup**
-* Select **Option 317 Register RetroArch controller**
-* Follow the on screen directions. It will ask you to press all the buttons on your controller.
-* Just press the ones you need. Let the ones you won't need to **timeout**.
+Just go to the Retropie Wiki page [Controller Configuration (RetroArch)](https://github.com/retropie/retropie-setup/wiki/RetroArch-Configuration).
 
 ### SNES controller
 
@@ -533,6 +519,10 @@ sudo ./retropie_setup.sh
 ![Xbox 360 controller](https://cloud.githubusercontent.com/assets/10035308/7111199/e29365ec-e179-11e4-87b4-f00685661d7e.png)
 
 *Images from [RetroPie Wiki](https://github.com/petrockblog/RetroPie-Setup/wiki/RetroArch-Configuration).*
+
+## Configuring an 8Bitdo gamepad
+
+Again, just go to the Retropie Wiki page [Setting up an 8bitdo Bluetooth controller](https://github.com/retropie/retropie-setup/wiki/Setting-up-an-8bitdo-Bluetooth-controller).
 
 ## Emulators and ROMs
 
