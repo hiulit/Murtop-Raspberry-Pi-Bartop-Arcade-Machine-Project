@@ -524,6 +524,28 @@ Just go to the Retropie Wiki page [Controller Configuration (RetroArch)](https:/
 
 Again, just go to the Retropie Wiki page [Setting up an 8bitdo Bluetooth controller](https://github.com/retropie/retropie-setup/wiki/Setting-up-an-8bitdo-Bluetooth-controller).
 
+When you're finished setting up the 8Bitdo gamepad, go to `/opt/retropie/configs/all/retroarch-joypads/` and here you should see a file  called something like `8BitdoNES30GamePad.cfg` (in that case it's an 8Bitdo's NES30 gamepad configuration file) and it should look like this:
+
+```
+input_device = "8Bitdo NES30 GamePad"
+input_driver = "udev"
+input_l_btn = "6"
+input_load_state_btn = "6"
+input_start_btn = "11"
+input_exit_emulator_btn = "11"
+input_a_btn = "0"
+input_b_btn = "1"
+input_reset_btn = "1"
+input_r_btn = "7"
+input_save_state_btn = "7"
+input_x_btn = "3"
+input_menu_toggle_btn = "3"
+input_select_btn = "10"
+input_enable_hotkey_btn = "10"
+input_y_btn = "4"
+```
+ You can find more examples in the link above.
+ 
 ## Emulators and ROMs
 
 * Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
