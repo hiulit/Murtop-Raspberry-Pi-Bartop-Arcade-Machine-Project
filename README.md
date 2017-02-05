@@ -524,7 +524,7 @@ Just go to the Retropie Wiki page [Controller Configuration (RetroArch)](https:/
 
 Again, just go to the Retropie Wiki page [Setting up an 8bitdo Bluetooth controller](https://github.com/retropie/retropie-setup/wiki/Setting-up-an-8bitdo-Bluetooth-controller).
 
-When you're finished setting up the 8Bitdo gamepad, go to `/opt/retropie/configs/all/retroarch-joypads/` and here you should see a file  called something like `8BitdoNES30GamePad.cfg` (in that case it's an 8Bitdo's NES30 gamepad configuration file) and it should look like this:
+When you're finished setting up the 8Bitdo gamepad, go to `/opt/retropie/configs/all/retroarch-joypads/`. Here you should see a file  called something like `8BitdoNES30GamePad.cfg` (in this case it's an 8Bitdo's NES30 gamepad configuration file) and it should look like this:
 
 ```
 input_device = "8Bitdo NES30 GamePad"
@@ -533,18 +533,40 @@ input_l_btn = "6"
 input_load_state_btn = "6"
 input_start_btn = "11"
 input_exit_emulator_btn = "11"
+input_up_axis = "-1"
 input_a_btn = "0"
 input_b_btn = "1"
 input_reset_btn = "1"
+input_down_axis = "+1"
 input_r_btn = "7"
 input_save_state_btn = "7"
+input_right_axis = "+0"
+input_state_slot_increase_axis = "+0"
 input_x_btn = "3"
 input_menu_toggle_btn = "3"
 input_select_btn = "10"
 input_enable_hotkey_btn = "10"
 input_y_btn = "4"
+input_left_axis = "-0"
+input_state_slot_decrease_axis = "-0"
 ```
- You can find more examples in the link above.
+
+You can find more examples in the link above.
+
+### 8Bitdo's gamepads troubleshooting
+
+If, for some reason, after configuring the gamepad in EmulationStation it doesn't seem to work when you're in a game, try:
+
+* Update RetroPie to the latest version.
+	* In the `RetroPie-Setup script` go to `Update RetroPie-Setup script`.
+	* Then, still in the `RetroPie-Setup script`, go to `Update all installed packages`.
+* Update the [gamepad's firmware](http://www.8bitdo.com/Support.html).
+* Redo the bluetooth setup.
+	* `Remove bluetooth device`.
+	* `Register and connect again`.
+* Redo configuration un EmulationStation.
+
+*Thanks to [Rion (in the Retropie forum)](https://retropie.org.uk/forum/topic/5569/nes-snes-and-8bitdo/6)*.
  
 ## Emulators and ROMs
 
