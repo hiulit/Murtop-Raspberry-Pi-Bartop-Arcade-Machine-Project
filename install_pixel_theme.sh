@@ -15,8 +15,8 @@ THEME="pixel"
 INVALID_OPTION_MESSAGE="Invalid option. Please, enter an option (number)."
 
 SRC_PIXEL_THEME_PATH="/etc/emulationstation/themes/$THEME"
-GIT_PIXEL_THEME_URL="https://github.com/$repo/es-theme-$THEME.git"
-CURL_PIXEL_THEME_URL="https://api.github.com/repos/$repo/es-theme-$THEME"
+GIT_PIXEL_THEME_URL="https://github.com/$REPO/es-theme-$THEME.git"
+CURL_PIXEL_THEME_URL="https://api.github.com/repos/$REPO/es-theme-$THEME"
 
 SRC_SPLASHSCREENS_PATH=$SRC_PIXEL_THEME_PATH
 DEST_SPLASHSCREENS_PATH="/home/pi/RetroPie/splashscreens"
