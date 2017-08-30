@@ -125,29 +125,7 @@ function install_launching_images() {
             echo -e "${YELLOW}Launching images repository already installed.${NC}"
             echo "Let's see if there are any updates ..."
             cd $SRC_LAUNCHING_IMAGES_PATH
-            git remote update
-
-            UPSTREAM=${1:-'@{u}'}
-            LOCAL=$(git rev-parse @)
-            REMOTE=$(git rev-parse "$UPSTREAM")
-            BASE=$(git merge-base @ "$UPSTREAM")
-
-            if [[ $LOCAL == $REMOTE ]]; then
-                echo -e "${GREEN}Up-to-date${NC}"
-                #if [[  ]]; then
-                    overwrite=true
-                #else
-                    #overwrite=false
-                #fi
-                launch_launching_images_select $overwrite
-            elif [[ $LOCAL == $BASE ]]; then
-                echo "Need to pull"
-                git pull
-            elif [[ $REMOTE == $BASE ]]; then
-                echo "Need to push"
-            else
-                echo "Diverged"
-            fi
+            check_for_updates
         fi
     else
         if [[ $(curl $CURL_LAUNCHING_IMAGES_URL | awk -F\" '/message/ {print $(NF-1)}') == "Not Found" ]]; then
@@ -265,35 +243,39 @@ function launch_pixel_theme_select() {
     done
 }
 
+function check_for_updates() {
+    git remote update
+
+    UPSTREAM=${1:-'@{u}'}
+    LOCAL=$(git rev-parse @)
+    REMOTE=$(git rev-parse "$UPSTREAM")
+    BASE=$(git merge-base @ "$UPSTREAM")
+
+    if [[ $LOCAL == $REMOTE ]]; then
+        echo -e "${GREEN}Up-to-date${NC}"
+        
+        #if [[  ]]; then
+            overwrite=true
+        #else
+            #overwrite=false
+        #fi
+    elif [[ $LOCAL == $BASE ]]; then
+        echo "Need to pull"
+        git pull
+    elif [[ $REMOTE == $BASE ]]; then
+        echo "Need to push"
+    else
+        echo "Diverged"
+    fi
+}
+
 function install_pixel_theme() {
     if hash git >/dev/null 2>&1; then
         if [[ -d $SRC_PIXEL_THEME_PATH/.git ]]; then
             cd $SRC_PIXEL_THEME_PATH
             echo -e "${YELLOW}Pixel theme repository already installed.${NC}"
             echo "Let's see if there are any updates..."
-            git remote update
-
-            UPSTREAM=${1:-'@{u}'}
-            LOCAL=$(git rev-parse @)
-            REMOTE=$(git rev-parse "$UPSTREAM")
-            BASE=$(git merge-base @ "$UPSTREAM")
-
-            if [[ $LOCAL == $REMOTE ]]; then
-                echo -e "${GREEN}Up-to-date${NC}"
-                
-                #if [[  ]]; then
-                    overwrite=true
-                #else
-                    #overwrite=false
-                #fi
-            elif [[ $LOCAL == $BASE ]]; then
-                echo "Need to pull"
-                git pull
-            elif [[ $REMOTE == $BASE ]]; then
-                echo "Need to push"
-            else
-                echo "Diverged"
-            fi
+            check_for_updates
         else
             echo "Installing Pixel theme..."
             
