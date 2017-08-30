@@ -328,17 +328,30 @@ function install_pixel_theme() {
 }
 
 function uninstall_pixel_theme() {
-    uninstall_splashscreen
-    uninstall_launching_images
+    launch_uninstall_pixel_theme_select
+}
 
-    echo "Finishing ..."
-    
-    if [[ -d $SRC_PIXEL_THEME_PATH ]]; then
-        rm -rf $SRC_PIXEL_THEME_PATH
-        echo -e "${GREEN}Pixel theme removed from EmulationStation successfully!${NC}"
-    else
-        echo "No Pixel theme repository to remove in $SRC_PIXEL_THEME_PATH/ ... Move along!"
-    fi
+function launch_uninstall_pixel_theme_select() {
+    echo -e "${PURPLE}Do you wish to ${BOLD}uninstall${PURPLE} Pixel theme completely?${NC}"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes )
+                uninstall_splashscreen
+                uninstall_launching_images
+
+                echo "Finishing ..."
+                
+                if [[ -d $SRC_PIXEL_THEME_PATH ]]; then
+                    rm -rf $SRC_PIXEL_THEME_PATH
+                    echo -e "${GREEN}Pixel theme removed from EmulationStation successfully!${NC}"
+                else
+                    echo "No Pixel theme repository to remove in $SRC_PIXEL_THEME_PATH/ ... Move along!"
+                fi
+            break;;
+            No ) exit;;
+            * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
+        esac
+    done
 }
 
 # Call arguments verbatim
