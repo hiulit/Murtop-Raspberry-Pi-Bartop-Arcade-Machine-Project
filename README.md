@@ -113,7 +113,7 @@
 
 ## Installing RetroPie
 
-*You can also follow the official Retropie Wiki [First installation](https://github.com/retropie/retropie-setup/wiki/First-Installation) guide.*
+> You can also follow the official Retropie Wiki [First installation](https://github.com/retropie/retropie-setup/wiki/First-Installation) guide.
 
 * Download [RetroPie](https://retropie.org.uk/download/).
 * Extract the downloaded compressed (`.gz`) file. The extracted file will be an image (`.img`) file.
@@ -139,7 +139,7 @@ We will be using [ApplePi-Baker](http://www.tweaking4all.com/hardware/raspberry-
 * It will ask you to configure the input (keyboard, joystick, controller, etc.) to navigate the menus. Use the keyboard for now.
 * But, **before proceeding any further**, let's back up a little and configure the Wi-Fi and other settings.
 
-*All the configurations below can be done in a more user-friendly way via the Retropie Settings Menu in EmulationStation (e.g. Configuring the Wi-Fi).*
+> All the configurations below can be done in a more user-friendly way via the Retropie Settings Menu in EmulationStation (e.g. Configuring the Wi-Fi).
 
 ### Expanding the Filesystem
 
@@ -257,7 +257,7 @@ To get the latest splash screens for the Pixel theme:
 
 #### Replacing the RetroPie Settings icons
 
-*These icons are designed to be used along with the Pixel theme.*
+> These icons are designed to be used along with the Pixel theme.
 
 When you install the Pixel theme, you can see right away how the icons in the Retropie Settings doesn't fit at all with the rest of the theme. Luckily, the Pixel theme comes with its own set of pixelated icons for the Retropie Settings. Let's change them!
 
@@ -272,7 +272,7 @@ When you install the Pixel theme, you can see right away how the icons in the Re
 
 ### Replacing Runcommand System splash screens
 
-*These splash screens are designed to be used along with the Pixel theme.*
+> These splash screens are designed to be used along with the Pixel theme.
 
 * [Download](https://dl.dropboxusercontent.com/u/60872572/EmulationStation/Pixel/Pixel_RunCommand_Wallpapers/launching.zip) the splash screens.
 * Unzip `launching.zip`. You'll see folders for each emulator.
@@ -292,7 +292,7 @@ When you install the Pixel theme, you can see right away how the icons in the Re
 
 ### Pixelating the games
 
-Let's give the games a more retro style, kind of the look as if you were playing on an old CRT.
+Let's give the games a more retro style, the kind of look as if you were playing on an old CRT.
 We'll deactivate the video smoothness and we'll add some scanlines.
 
 #### Not libretro/RetroArch emulators
@@ -315,7 +315,11 @@ We'll deactivate the video smoothness and we'll add some scanlines.
 
 #### Libretro/RetroArch emulators
 
+> Work in progress
+
 ### Addind scanlines
+
+> Work in progress
 
 
 ## Accessing the Raspberry Pi via SSH
@@ -342,7 +346,7 @@ ssh pi@your.raspberrypi.ip.address
 
 ## Building the cabinet
 
-
+> Work in progress
 
 ## Joysticks and buttons
 
@@ -356,7 +360,9 @@ ssh pi@your.raspberrypi.ip.address
 
 ### Wiring
 
-With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfect for a 2 player bartop, including:
+With the Raspberry Pi B+, Raspberry Pi 2 B+ and Raspberry Pi 3 you can use up to 26 GPIO, perfect for a 2 player bartop!
+
+This includes:
 
 * 2 joysticks (8 buttons)
 * 12 action buttons
@@ -366,19 +372,20 @@ With the Raspberry Pi B+ and Raspberry Pi 2 B+ you can use up to 26 GPIO, perfec
 
 ![GPIO](assets/images/GPIO.png)
 
-### 
-
 *Image from [element14](http://www.element14.com/).*
 
 ![Wiring-01](assets/images/Wiring-01.jpg)
 
 ![Wiring-02.](assets/images/Wiring-02.jpg)
 
-*My humble scaffold for the controller.*
+> My humble scaffold for the controller.
 
 ## Setting up the arcade buttons
 
-Download [Adafruit's retrogame](https://github.com/adafruit/Adafruit-Retrogame), a Raspberry Pi GPIO-to-USB utility for classic game emulators.
+> There's a new version of Adafruit's Retrogame.
+> I'll update this section with the new settings.
+
+Download [Adafruit's Retrogame](https://github.com/adafruit/Adafruit-Retrogame), a Raspberry Pi GPIO-to-USB utility for classic game emulators.
 
 * Boot the Raspberry Pi.
 * Quit EmulationStation. It will take you to the command line.
@@ -522,9 +529,9 @@ Just go to the Retropie Wiki page [Controller Configuration (RetroArch)](https:/
 
 ## Configuring an 8Bitdo gamepad
 
-Again, just go to the Retropie Wiki page [Setting up an 8bitdo Bluetooth controller](https://github.com/retropie/retropie-setup/wiki/Setting-up-an-8bitdo-Bluetooth-controller).
+Again, just go to the Retropie Wiki page: [Setting up an 8bitdo Bluetooth controller](https://github.com/retropie/retropie-setup/wiki/Setting-up-an-8bitdo-Bluetooth-controller). Everything it's explained there with great detail.
 
-When you're finished setting up the 8Bitdo gamepad, go to `/opt/retropie/configs/all/retroarch-joypads/`. Here you should see a file  called something like `8BitdoNES30GamePad.cfg` (in this case it's an 8Bitdo's NES30 gamepad configuration file) and it should look like this:
+When you're finished setting up the **8Bitdo gamepad**, go to `/opt/retropie/configs/all/retroarch-joypads/`. Here you should see a file  called something like `8BitdoNES30GamePad.cfg` (in this case it's an 8Bitdo's NES30 gamepad configuration file) and it should look like this:
 
 ```
 input_device = "8Bitdo NES30 GamePad"
@@ -551,11 +558,11 @@ input_left_axis = "-0"
 input_state_slot_decrease_axis = "-0"
 ```
 
-You can find more examples in the link above.
+You can find more examples in the Wiki page's link above.
 
 ### 8Bitdo's gamepads troubleshooting
 
-If, for some reason, after configuring the gamepad in EmulationStation it doesn't seem to work when you're in a game, try:
+If, for some reason, after configuring the gamepad in EmulationStation it doesn't seem to work when you're in a game, try this:
 
 * Update RetroPie to the latest version.
 	* In the `RetroPie-Setup script` go to `Update RetroPie-Setup script`.
@@ -566,20 +573,14 @@ If, for some reason, after configuring the gamepad in EmulationStation it doesn'
 	* `Register and connect again`.
 * Redo configuration un EmulationStation.
 
-*Thanks to [Rion (in the Retropie forum)](https://retropie.org.uk/forum/topic/5569/nes-snes-and-8bitdo/6)*.
+> Thanks to [Rion (in the Retropie forum)](https://retropie.org.uk/forum/topic/5569/nes-snes-and-8bitdo/6).
  
 ## Emulators and ROMs
 
 * Connect to your Raspberry Pi [using CyberDuck](#using-cyberduck).
 * Go to `/home/pi/RetroPie/roms/`
 * Look for the emulator's folder corresponding to your ROM and copy it there.
-* Now type:
-
-```
-sudo reboot
-```
-
-* This will reboot the Raspberry Pi.
+* Restart EmulationStation.
 
 ## Installing GameMaker games
 
@@ -601,7 +602,7 @@ The GameMaker games will appear on the `ports` section.
 
 ## Configure Retroarch
 
-
+> Work in progress
 
 ## Troubleshooting
 
