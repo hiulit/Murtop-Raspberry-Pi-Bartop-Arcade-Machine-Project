@@ -26,10 +26,27 @@ DEST_LAUNCHING_IMAGES_PATH="/opt/retropie/configs"
 GIT_LAUNCHING_IMAGES_URL="https://github.com/ehettervik/es-runcommand-splash.git"
 CURL_LAUNCHING_IMAGES_URL="https://api.github.com/repos/ehettervik/es-runcommand-splash"
 
+function launch_install_launching_images_select() {
+    echo -e "${PURPLE}Do you want to ${BOLD}install${PURPLE} launching images for ${THEME^} theme?${NC}"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes )
+                install_launching_images
+            break;;
+            No )
+                exit
+            break;;
+            * )
+                echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
+        esac
+    done
+    exit
+}
+
 function copy_launching_images() {
     if [[ ! -d "$SRC_LAUNCHING_IMAGES_PATH" ]]; then
         echo -e "${RED}$SRC_LAUNCHING_IMAGES_PATH/ doesn't exist!${NC}"
-        exit
+        launch_install_launching_images_select
     fi
 
     dirs=($SRC_LAUNCHING_IMAGES_PATH/*)
@@ -105,7 +122,7 @@ function uninstall_launching_images() {
     echo "Finishing ..."
     
     if [[ $ok == true ]]; then
-        echo -e "${GREEN}All 'launching.png' removed from $DEST_LAUNCHING_IMAGES_PATH/ successfully!${NC}"
+        echo -e "${GREEN}All 'launching.png' ${BOLD}removed${GREEN} from $DEST_LAUNCHING_IMAGES_PATH/ successfully!${NC}"
     else
         echo "No 'launching.png' to remove in $DEST_LAUNCHING_IMAGES_PATH/ ... Move along!"
     fi
@@ -188,7 +205,27 @@ function launch_splashscreen_select() {
             break;;
             "None" )
                 if [[ $from_pixel_theme == true ]]; then
-                    install_launching_images
+                    launch_install_launching_images_select
+                else
+                    exit
+                fi
+            break;;
+            * )
+                echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
+        esac
+    done
+}
+
+function launch_install_splashscreen_select() {
+    echo -e "${PURPLE}Do you wish to ${BOLD}install${PURPLE} a splashscreen for ${THEME^} theme?${NC}"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes )
+                install_splashscreen
+            break;;
+            No )
+                if [[ $from_pixel_theme == true ]]; then
+                    launch_install_launching_images_select
                 else
                     exit
                 fi
@@ -238,7 +275,7 @@ function uninstall_splashscreen() {
         rm -rf $DEST_SPLASHSCREENS_PATH
         echo -e "${GREEN}Splashscreen ${BOLD}removed${GREEN} from $DEST_SPLASHSCREENS_PATH/ successfully!${NC}"
     else
-        echo "No splashscreen to be removed in $DEST_SPLASHSCREENS_PATH/ ... Move along!"
+        echo "No 'launching.png' to remove in $DEST_SPLASHSCREENS_PATH/ ... Move along!"
     fi
 }
 
@@ -247,7 +284,7 @@ function launch_pixel_theme_select() {
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
-                install_pixel_theme
+                install_theme
             break;;
             No ) exit;;
             * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
@@ -274,7 +311,7 @@ function check_for_updates() {
         #fi
     elif [[ $LOCAL == $BASE ]]; then
         output="Need to pull"
-        tatus="need-to-pull"
+        status="need-to-pull"
     elif [[ $REMOTE == $BASE ]]; then
         output="Need to push"
         status="need-to-push"
@@ -290,9 +327,12 @@ function check_directory() {
     if [[ -d $directory_to_check ]]; then
         echo -e "${RED}$directory_to_check doesn't exist${NC}"
     fi
+    if [[ -d $directory_to_check/.git ]]; then
+        echo -e "${YELLOW}${THEME^} theme repository already installed.${NC}"
+    fi
 }
 
-function install_pixel_theme() {
+function install_theme() {
     if hash git >/dev/null 2>&1; then
         if [[ -d $SRC_THEME_PATH/.git ]]; then
             cd $SRC_THEME_PATH
@@ -315,8 +355,8 @@ function install_pixel_theme() {
                 success=$?
                 if [[ $success -eq 0 ]]; then
                     from_pixel_theme=true
-                    echo -e "${GREEN}${THEME^} theme cloned successfully!${NC}"
-                    install_splashscreen $from_pixel_theme
+                    echo -e "${GREEN}${THEME^} theme cloned/installed successfully!${NC}"
+                    launch_install_splashscreen_select $from_pixel_theme
                     install_launching_images $from_pixel_theme
                     echo "Finishing..."
                     echo -e "${GREEN}${THEME^} theme installed successfully!${NC}"
@@ -339,12 +379,12 @@ function install_pixel_theme() {
     fi
 }
 
-function launch_install_pixel_theme_select() {
+function launch_install_theme_select() {
     echo -e "${PURPLE}Do you wish to ${BOLD}install${PURPLE} ${THEME^} theme?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
-                install_pixel_theme
+                install_theme
             break;;
             No ) exit;;
             * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
@@ -352,11 +392,11 @@ function launch_install_pixel_theme_select() {
     done
 }
 
-function uninstall_pixel_theme() {
-    launch_uninstall_pixel_theme_select
+function uninstall_theme() {
+    launch_uninstall_theme_select
 }
 
-function launch_uninstall_pixel_theme_select() {
+function launch_uninstall_theme_select() {
     echo -e "${PURPLE}Do you wish to ${BOLD}uninstall${PURPLE} ${THEME^} theme completely?${NC}"
     select yn in "Yes" "No"; do
     case $yn in
@@ -376,8 +416,6 @@ function launch_uninstall_pixel_theme_select() {
     esac
     done
 }
-
-#launch_install_pixel_theme_select
 
 # Call arguments verbatim
 $@
