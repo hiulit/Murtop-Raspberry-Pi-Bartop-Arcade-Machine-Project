@@ -14,11 +14,11 @@ THEME="pixel"
 
 INVALID_OPTION_MESSAGE="Invalid option. Please, enter an option (number)."
 
-SRC_PIXEL_THEME_PATH="/etc/emulationstation/themes/$THEME"
-GIT_PIXEL_THEME_URL="https://github.com/$REPO/es-theme-$THEME.git"
-CURL_PIXEL_THEME_URL="https://api.github.com/repos/$REPO/es-theme-$THEME"
+SRC_THEME_PATH="/etc/emulationstation/themes/$THEME"
+GIT_THEME_URL="https://github.com/$REPO/es-theme-$THEME.git"
+CURL_THEME_URL="https://api.github.com/repos/$REPO/es-theme-$THEME"
 
-SRC_SPLASHSCREENS_PATH=$SRC_PIXEL_THEME_PATH
+SRC_SPLASHSCREENS_PATH=$SRC_THEME_PATH
 DEST_SPLASHSCREENS_PATH="/home/pi/RetroPie/splashscreens"
 
 SRC_LAUNCHING_IMAGES_PATH="/home/pi/launching-images"
@@ -113,7 +113,7 @@ function uninstall_launching_images() {
     if [[ -d $SRC_LAUNCHING_IMAGES_PATH ]]; then
         rm -rf $SRC_LAUNCHING_IMAGES_PATH
         echo "Finishing ..."
-        echo -e "${GREEN}Launching images repository removed from $SRC_LAUNCHING_IMAGES_PATH/ successfully!.${NC}"
+        echo -e "${GREEN}Launching images repository ${BOLD}removed${GREEN} from $SRC_LAUNCHING_IMAGES_PATH/ successfully!.${NC}"
     else
         echo "No launching images repository to remove in $SRC_LAUNCHING_IMAGES_PATH/ ... Move along!"
     fi
@@ -149,7 +149,7 @@ function install_launching_images() {
 function launch_launching_images_select() {
     text="install"
     
-    if [[ $overwrite == true ]];then
+    if [[ $overwrite == true ]]; then
         text="overwrite"
     fi
 
@@ -161,7 +161,13 @@ function launch_launching_images_select() {
                 echo "$overwrite"
                 copy_launching_images $overwrite
             break;;
-            No ) exit;;
+            No )
+                if [[ $from_install_pixel_theme == true ]]; then
+                    install_splashscreen
+                else
+                    exit
+                fi
+            break;;
             * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
         esac
     done
@@ -180,7 +186,13 @@ function launch_splashscreen_select() {
                 cp $SRC_SPLASHSCREENS_PATH/splash4-3.png $DEST_SPLASHSCREENS_PATH
                 echo -e "${GREEN}$splashscreen splashscreen copied successfully!${NC}"
             break;;
-            "None" ) exit;;
+            "None" )
+                if [[ $from_pixel_theme == true ]]; then
+                    install_launching_images
+                else
+                    exit
+                fi
+            break;;
             * )
                 echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
         esac
@@ -188,8 +200,8 @@ function launch_splashscreen_select() {
 }
 
 function install_splashscreen() {
-    if [[ ! -d $SRC_PIXEL_THEME_PATH ]]; then
-        echo -e "${RED}Pixel theme doesn't exist. Can't install splashscreens!${NC}"
+    if [[ ! -d $SRC_THEME_PATH ]]; then
+        echo -e "${RED}${THEME^} theme doesn't exist. Can't install splashscreens!${NC}"
         launch_pixel_theme_select
      else
         if [[ ! -d $DEST_SPLASHSCREENS_PATH ]]; then
@@ -197,7 +209,7 @@ function install_splashscreen() {
             cd /home/pi/RetroPie
             mkdir splashscreens
             echo -e "${GREEN}Splashscreens folder created successfully!${NC}"
-            launch_splashscreen_select
+            launch_splashscreen_select $from_pixel_theme
         else
             if [[ "$(ls -A /home/pi/RetroPie/splashscreens)" ]]; then
                 echo "There is already a splashscreen! Do you want to overwrite it?"
@@ -205,7 +217,7 @@ function install_splashscreen() {
                 select yn in "Yes" "No"; do
                     case $yn in
                         Yes )
-                            echo "Removing splashscreen..."
+                            echo "Removing splashscreen ..."
                             rm -f /home/pi/RetroPie/splashscreens/*
                             echo "Splashscreen removed successfully!"
                             launch_splashscreen_select
@@ -224,14 +236,14 @@ function install_splashscreen() {
 function uninstall_splashscreen() {
     if [[ -d $DEST_SPLASHSCREENS_PATH ]]; then
         rm -rf $DEST_SPLASHSCREENS_PATH
-        echo -e "${GREEN}Splashscreen removed from $DEST_SPLASHSCREENS_PATH/ successfully!${NC}"
+        echo -e "${GREEN}Splashscreen ${BOLD}removed${GREEN} from $DEST_SPLASHSCREENS_PATH/ successfully!${NC}"
     else
         echo "No splashscreen to be removed in $DEST_SPLASHSCREENS_PATH/ ... Move along!"
     fi
 }
 
 function launch_pixel_theme_select() {
-    echo -e "${PURPLE}Do you wish to install Pixel theme?${NC}"
+    echo -e "${PURPLE}Do you wish to install ${THEME^} theme?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
@@ -244,6 +256,7 @@ function launch_pixel_theme_select() {
 }
 
 function check_for_updates() {
+    echo "Let's see if there are any updates ..."
     git remote update
 
     UPSTREAM=${1:-'@{u}'}
@@ -252,53 +265,70 @@ function check_for_updates() {
     BASE=$(git merge-base @ "$UPSTREAM")
 
     if [[ $LOCAL == $REMOTE ]]; then
-        echo -e "${GREEN}Up-to-date${NC}"
-        
+        output="${GREEN}Up-to-date${NC}"
+        status="up-to-date"
         #if [[  ]]; then
             overwrite=true
         #else
             #overwrite=false
         #fi
     elif [[ $LOCAL == $BASE ]]; then
-        echo "Need to pull"
-        git pull
+        output="Need to pull"
+        tatus="need-to-pull"
     elif [[ $REMOTE == $BASE ]]; then
-        echo "Need to push"
+        output="Need to push"
+        status="need-to-push"
     else
-        echo "Diverged"
+        output="Diverged"
+        status="diverged"
+    fi
+    
+    echo -e $output
+}
+
+function check_directory() {
+    if [[ -d $directory_to_check ]]; then
+        echo -e "${RED}$directory_to_check doesn't exist${NC}"
     fi
 }
 
 function install_pixel_theme() {
     if hash git >/dev/null 2>&1; then
-        if [[ -d $SRC_PIXEL_THEME_PATH/.git ]]; then
-            cd $SRC_PIXEL_THEME_PATH
-            echo -e "${YELLOW}Pixel theme repository already installed.${NC}"
-            echo "Let's see if there are any updates..."
+        if [[ -d $SRC_THEME_PATH/.git ]]; then
+            cd $SRC_THEME_PATH
+            echo -e "${YELLOW}${THEME^} theme repository already installed.${NC}"
             check_for_updates
+            if [[ $status == "up-to-date" ]]; then
+                if [[ -d $SRC_THEME_PATH/.git ]]; then
+                    cd $SRC_LAUNCHING_IMAGES_PATH
+                    echo -e "${YELLOW}Launching images repository already installed.${NC}"
+                    check_for_updates
+                fi
+            fi
         else
-            echo "Installing Pixel theme..."
+            echo "Installing ${THEME^} theme ..."
             
-            if [[ $(curl $CURL_PIXEL_THEME_URL | awk -F\" '/message/ {print $(NF-1)}') == "Not Found" ]]; then
+            if [[ $(curl $CURL_THEME_URL | awk -F\" '/message/ {print $(NF-1)}') == "Not Found" ]]; then
                 echo -e "${RED}This repository doesn't exist.${NC}"
             else
-                git clone --depth=1 $GIT_PIXEL_THEME_URL $SRC_PIXEL_THEME_PATH
+                git clone --depth=1 $GIT_THEME_URL $SRC_THEME_PATH
                 success=$?
                 if [[ $success -eq 0 ]]; then
-                    echo -e "${GREEN}Pixel theme cloned successfully!${NC}"
-                    install_splashscreen
-                    install_launching_images
+                    from_pixel_theme=true
+                    echo -e "${GREEN}${THEME^} theme cloned successfully!${NC}"
+                    install_splashscreen $from_pixel_theme
+                    install_launching_images $from_pixel_theme
                     echo "Finishing..."
-                    echo -e "${GREEN}Pixel theme installed successfully!${NC}"
+                    echo -e "${GREEN}${THEME^} theme installed successfully!${NC}"
                 else
                     echo -e "${RED}Something went wrong :_(${NC}"
-                    echo -e "${RED}Couldn't resolve $git_pixel_theme_url${NC}"
+                    echo -e "${RED}Couldn't resolve $GIT_THEME_URL${NC}"
                 fi
             fi
         fi
     else
         echo -e "${RED}git NOT installed.${ND}"
-        echo "Do you wish to install git?"
+        echo -e "${PURPLE}Do you wish to ${BOLD}install${PURPLE} git?${NC}"
         select yn in "Yes" "No"; do
             case $yn in
                 Yes ) sudo apt-get install git lsb-release; break;;
@@ -309,32 +339,45 @@ function install_pixel_theme() {
     fi
 }
 
-function uninstall_pixel_theme() {
-    launch_uninstall_pixel_theme_select
-}
-
-function launch_uninstall_pixel_theme_select() {
-    echo -e "${PURPLE}Do you wish to ${BOLD}uninstall${PURPLE} Pixel theme completely?${NC}"
+function launch_install_pixel_theme_select() {
+    echo -e "${PURPLE}Do you wish to ${BOLD}install${PURPLE} ${THEME^} theme?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
-                uninstall_splashscreen
-                uninstall_launching_images
-
-                echo "Finishing ..."
-                
-                if [[ -d $SRC_PIXEL_THEME_PATH ]]; then
-                    rm -rf $SRC_PIXEL_THEME_PATH
-                    echo -e "${GREEN}Pixel theme removed from EmulationStation successfully!${NC}"
-                else
-                    echo "No Pixel theme repository to remove in $SRC_PIXEL_THEME_PATH/ ... Move along!"
-                fi
+                install_pixel_theme
             break;;
             No ) exit;;
             * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
         esac
     done
 }
+
+function uninstall_pixel_theme() {
+    launch_uninstall_pixel_theme_select
+}
+
+function launch_uninstall_pixel_theme_select() {
+    echo -e "${PURPLE}Do you wish to ${BOLD}uninstall${PURPLE} ${THEME^} theme completely?${NC}"
+    select yn in "Yes" "No"; do
+    case $yn in
+        Yes )
+            uninstall_splashscreen
+            uninstall_launching_images
+            echo "Finishing ..."
+            if [[ -d $SRC_THEME_PATH ]]; then
+                rm -rf $SRC_THEME_PATH
+                echo -e "${GREEN}${THEME^} theme ${BOLD}removed${GREEN} from EmulationStation successfully!${NC}"
+            else
+                echo "No ${THEME^} theme repository to remove in $SRC_THEME_PATH/ ... Move along!"
+            fi
+        break;;
+        No ) exit;;
+        * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
+    esac
+    done
+}
+
+#launch_install_pixel_theme_select
 
 # Call arguments verbatim
 $@
