@@ -274,11 +274,11 @@ When you install the Pixel theme, you can see right away how the icons in the Re
 
 > These splash screens are designed to be used along with the Pixel theme.
 
-* [Download](https://dl.dropboxusercontent.com/u/60872572/EmulationStation/Pixel/Pixel_RunCommand_Wallpapers/launching.zip) the splash screens.
+* [Download](https://github.com/ehettervik/es-runcommand-splash/archive/master.zip) the splash screens.
 * Unzip `launching.zip`. You'll see folders for each emulator.
-* Inside each folder there's a `launching.png` file. You have to place them in `opt/retropie/config/` inside the emulator folder you want the splash screen to be shown.
+* Inside each folder there's a `launching.png` file. You have to place them in `opt/retropie/configs/` inside the emulator folder you want the splash screen to be shown.
 * There are a couple of exceptions:
-	* Megadrive and Genesis share the same folder so you'll have to choose which one to use. If you choose the `launching-megadrive.png` remember to rename it to `launching.png` before placing it in `opt/retropie/config/`
+	* Megadrive and Genesis share the same folder so you'll have to choose which one to use. If you choose the `launching-megadrive.png` remember to rename it to `launching.png` before placing it in `opt/retropie/configs/`
 	* Same for the SNES.
 * Go the `Retropie Settings` in EmulationStation and choose `Retropie Setup`.
 * This will take you to the configuration GUI.
@@ -295,7 +295,7 @@ When you install the Pixel theme, you can see right away how the icons in the Re
 Let's give the games a more retro style, the kind of look as if you were playing on an old CRT.
 We'll deactivate the video smoothness and we'll add some scanlines.
 
-#### Not libretro/RetroArch emulators
+#### Non Libretro emulators
 
 `mame4all` and `pifba` (which are the best MAME emulators for Raspberry Pi 0/1) are not libretro/Retroarch emulators, so you'll have to configure them separately.
 
@@ -313,13 +313,15 @@ We'll deactivate the video smoothness and we'll add some scanlines.
 * Change `DisplaySmoothStretch=1` to `DisplaySmoothStretch=0` to deactivate the smoothness of the image.
 * Change `DisplayEffect=0` to `DisplayEffect=1` to activate scanlines.
 
-#### Libretro/RetroArch emulators
+#### Libretro emulators
 
-> Work in progress
+Video smoothing for Libretro emulator is off by default.
 
 ### Addind scanlines
 
-> Work in progress
+* Go the `Retropie Settings` in EmulationStation and choose `Configuration editor`.
+* Choose `Configure basic libretro emulator options`, then choose a specific emulator or `Configure default options for all libretro emulators` to make the change system-wide.
+* Then, set `Video Shader Enable` to `true` and then set `Video Shader File` to the desired shader (`crt-pi.glslp` and `crt-pi-curvature.glslp` are recommended).
 
 
 ## Accessing the Raspberry Pi via SSH
