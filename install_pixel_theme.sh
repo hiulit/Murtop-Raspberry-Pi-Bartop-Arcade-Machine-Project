@@ -12,7 +12,7 @@ NORMAL=$(tput sgr0)
 REPO="Retropie"
 THEME="pixel"
 
-INVALID_OPTION_MESSAGE="Invalid option. Please, enter an option (number)."
+INVALID_OPTION_MESSAGE="Invalid option. Please, enter a valid option (number)."
 
 SRC_THEME_PATH="/etc/emulationstation/themes/$THEME"
 SRC_THEME_ICONS_PATH="$SRC_THEME_PATH/retropie/icons"
@@ -139,6 +139,130 @@ function uninstall_theme_select() {
     done
 }
 
+function install_icons_select() {
+    text="install"
+    
+    if [[ $overwrite == true ]]; then
+        text="overwrite"
+        echo -e "${YELLOW}There are already icons installed!${NC}"
+    fi
+    
+    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's icons?${NC}"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes )
+                install_icons
+            break;;
+            No )
+                return
+            break;;
+            * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
+        esac
+    done
+}
+
+function install_icons() {
+    if [[ ! -d $SRC_THEME_ICONS_PATH ]]; then
+        echo -e "${RED}$SRC_THEME_ICONS_PATH/ doesn't exist!${NC}"
+        exit
+    else
+        if [[ ! "(ls -A $SRC_THEME_ICONS_PATH)" ]]; then
+            echo -e "${RED}$SRC_THEME_ICONS_PATH/ is empty!${NC}"
+            exit
+        fi
+    fi
+    
+    if [[ ! -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
+        echo "Creating '$BACKUP_ICONS_DIR' in $DEST_THEME_ICONS_PATH/ ..."
+        mkdir $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
+        echo -e "${GREEN}'$BACKUP_ICONS_DIR' ${BOLD}created${GREEN} in $DEST_THEME_ICONS_PATH/ successfully!${NC}"
+    else
+        if [[ ! "(ls -A $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR)" ]]; then
+            echo -e "${RED}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ is empty!${NC}"
+        else
+            if [[ $overwrite != true ]]; then
+                overwrite=true
+                install_icons_select $overwrite
+            fi
+        fi
+    fi
+    
+    if [[ $overwrite != true ]]; then
+        dest_icons=($DEST_THEME_ICONS_PATH/*)
+        for dest_icon in "${dest_icons[@]}"; do
+            if [[ -f "$dest_icon" ]]; then
+                #echo "$dest_icon"
+                #echo $(basename "$dest_icon")
+                echo "Copying '$(basename "$dest_icon")' into $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
+                cp $dest_icon $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
+                echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/$(basename "$dest_icon") copied successfully!${NC}"
+                ok=true
+            fi
+        done
+        
+        echo "Finishing ..."
+        if [[ $ok == true ]]; then
+            echo -e "${GREEN}All RetroPie's default icons ${BOLD}backed up${GREEN} in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}"
+        fi
+    fi
+    
+    src_icons=($SRC_THEME_ICONS_PATH/*)
+    for src_icon in "${src_icons[@]}"; do
+        if [[ -f "$src_icon" ]]; then
+            #echo "$src_icon"
+            #echo $(basename "$src_icon")
+            echo "Copying '$(basename "$src_icon")' into $DEST_THEME_ICONS_PATH/ ..."
+            cp $src_icon $DEST_THEME_ICONS_PATH
+            echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$(basename "$src_icon") copied successfully!${NC}"
+            ok=true
+        fi
+    done
+    
+    echo "Finishing ..."
+    if [[ $ok == true ]]; then
+        echo -e "${GREEN}All ${THEME^} theme's icons ${BOLD}copied${GREEN} in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}"
+    fi
+}
+
+function uninstall_icons() {
+    if [[ ! -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
+        echo -e "${RED}Can't ${BOLD}uninstall${RED} icons! There are no icons installed.${NC}"
+    else
+        dest_icons=($DEST_THEME_ICONS_PATH/*)
+        for dest_icon in "${dest_icons[@]}"; do
+            if [[ -f "$dest_icon" ]]; then
+                #echo "$dest_icon"
+                #echo $(basename "$dest_icon")
+                echo "Removing '$(basename "$dest_icon")' from $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
+                rm $dest_icon
+                echo -e "${GREEN}'$(basename "$dest_icon")' removed successfully!${NC}"
+                ok=true
+            fi
+        done
+        
+        backup_icons=($DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/*)
+        for backup_icon in "${backup_icons[@]}"; do
+            if [[ -f "$backup_icon" ]]; then
+                #echo "$backup_icon"
+                #echo $(basename "$backup_icon")
+                echo "Copying '$(basename "$backup_icon")' to $DEST_THEME_ICONS_PATH/ ..."
+                cp $backup_icon $DEST_THEME_ICONS_PATH/
+                echo -e "${GREEN}'$(basename "$backup_icon")' copied successfully!${NC}"
+                backup_ok=true
+            fi
+        done
+        
+        if [[ $backup_ok == true ]]; then
+            echo -e "${GREEN}All icons ${BOLD}restored${GREEN} from $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ succesfully!${NC}"
+            if [[ -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
+                echo "Removing $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
+                rm -rf $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
+                echo -e "${GREEN}'$BACKUP_ICONS_DIR' folder ${BOLD}removed${GREEN} from $DEST_THEME_ICONS_PATH/ succesfully!${NC}"
+            fi
+        fi
+    fi
+}
+
 function splashscreen_select() {
     echo -e "${PURPLE}Do you wish the 16:9 (widescreen) or the 4:3 (squarescreen) splashscreen?${NC}"
 
@@ -166,18 +290,20 @@ function splashscreen_select() {
 }
 
 function install_splashscreen_select() {
-    echo -e "${PURPLE}Do you wish to ${BOLD}install${PURPLE} a splashscreen for ${THEME^} theme?${NC}"
+    text="install"
+    
+    if [[ $overwrite == true ]]; then
+        text="overwrite"
+        echo -e "${YELLOW}There is already a splashscreen installed!${NC}"
+    fi
+
+    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's splashscreen?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
                 install_splashscreen
             break;;
             No )
-                #if [[ $from_install_theme == true ]]; then
-                   # install_launching_images_select
-                #else
-                   # exit
-                #fi
                 return
             break;;
             * )
@@ -233,18 +359,21 @@ function uninstall_splashscreen() {
 }
 
 function install_launching_images_select() {
-    echo -e "${PURPLE}Do you wish to ${BOLD}install${PURPLE} launching images for ${THEME^} theme?${NC}"
+    text="install"
+    
+    if [[ $overwrite == true ]]; then
+        text="overwrite"
+        echo -e "${YELLOW}There are already launching images installed!${NC}"
+    fi
+    
+    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's launching images?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
                 install_launching_images
             break;;
             No )
-                if [[ $from_install_theme == true ]]; then
-                    install_icons_select
-                else
-                    return
-                fi
+                return
             break;;
             * )
                 echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
@@ -443,130 +572,6 @@ function check_directory() {
     fi
     if [[ -d $directory_to_check/.git ]]; then
         echo -e "${YELLOW}${THEME^} theme repository already cloned/installed.${NC}"
-    fi
-}
-
-function install_icons_select() {
-    text="install"
-    
-    if [[ $overwrite == true ]]; then
-        text="overwrite"
-        echo -e "${YELLOW}There are already icons installed!${NC}"
-    fi
-    
-    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's icons?${NC}"
-    select yn in "Yes" "No"; do
-        case $yn in
-            Yes )
-                install_icons $overwrite
-            break;;
-            No )
-                return
-            break;;
-            * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
-        esac
-    done
-}
-
-function install_icons() {
-    if [[ ! -d $SRC_THEME_ICONS_PATH ]]; then
-        echo -e "${RED}$SRC_THEME_ICONS_PATH/ doesn't exist!${NC}"
-        exit
-    else
-        if [[ ! "(ls -A $SRC_THEME_ICONS_PATH)" ]]; then
-            echo -e "${RED}$SRC_THEME_ICONS_PATH/ is empty!${NC}"
-            exit
-        fi
-    fi
-    
-    if [[ ! -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
-        echo "Creating '$BACKUP_ICONS_DIR' in $DEST_THEME_ICONS_PATH/ ..."
-        mkdir $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
-        echo -e "${GREEN}'$BACKUP_ICONS_DIR' ${BOLD}created${GREEN} in $DEST_THEME_ICONS_PATH/ successfully!${NC}"
-    else
-        if [[ ! "(ls -A $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR)" ]]; then
-            echo -e "${RED}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ is empty!${NC}"
-        else
-            if [[ $overwrite != true ]]; then
-                overwrite=true
-                install_icons_select $overwrite
-            fi
-        fi
-    fi
-    
-    if [[ $overwrite != true ]]; then
-        dest_icons=($DEST_THEME_ICONS_PATH/*)
-        for dest_icon in "${dest_icons[@]}"; do
-            if [[ -f "$dest_icon" ]]; then
-                #echo "$dest_icon"
-                #echo $(basename "$dest_icon")
-                echo "Copying '$(basename "$dest_icon")' into $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
-                cp $dest_icon $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
-                echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/$(basename "$dest_icon") copied successfully!${NC}"
-                ok=true
-            fi
-        done
-        
-        echo "Finishing ..."
-        if [[ $ok == true ]]; then
-            echo -e "${GREEN}All RetroPie's default icons ${BOLD}backed up${GREEN} in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}"
-        fi
-    fi
-    
-    src_icons=($SRC_THEME_ICONS_PATH/*)
-    for src_icon in "${src_icons[@]}"; do
-        if [[ -f "$src_icon" ]]; then
-            #echo "$src_icon"
-            #echo $(basename "$src_icon")
-            echo "Copying '$(basename "$src_icon")' into $DEST_THEME_ICONS_PATH/ ..."
-            cp $src_icon $DEST_THEME_ICONS_PATH
-            echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$(basename "$src_icon") copied successfully!${NC}"
-            ok=true
-        fi
-    done
-    
-    echo "Finishing ..."
-    if [[ $ok == true ]]; then
-        echo -e "${GREEN}All ${THEME^} theme's icons ${BOLD}copied${GREEN} in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}"
-    fi
-}
-
-function uninstall_icons() {
-    if [[ ! -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
-        echo -e "${RED}Can't ${BOLD}uninstall${RED} icons! There are no icons installed.${NC}"
-    else
-        dest_icons=($DEST_THEME_ICONS_PATH/*)
-        for dest_icon in "${dest_icons[@]}"; do
-            if [[ -f "$dest_icon" ]]; then
-                #echo "$dest_icon"
-                #echo $(basename "$dest_icon")
-                echo "Removing '$(basename "$dest_icon")' from $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
-                rm $dest_icon
-                echo -e "${GREEN}'$(basename "$dest_icon")' removed successfully!${NC}"
-                ok=true
-            fi
-        done
-        
-        backup_icons=($DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/*)
-        for backup_icon in "${backup_icons[@]}"; do
-            if [[ -f "$backup_icon" ]]; then
-                #echo "$backup_icon"
-                #echo $(basename "$backup_icon")
-                echo "Copying '$(basename "$backup_icon")' to $DEST_THEME_ICONS_PATH/ ..."
-                cp $backup_icon $DEST_THEME_ICONS_PATH/
-                echo -e "${GREEN}'$(basename "$backup_icon")' copied successfully!${NC}"
-                backup_ok=true
-            fi
-        done
-        
-        if [[ $backup_ok == true ]]; then
-            echo -e "${GREEN}All icons ${BOLD}restored${GREEN} from $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ succesfully!${NC}"
-            if [[ -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
-                echo "Removing $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
-                rm -rf $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
-                echo -e "${GREEN}'$BACKUP_ICONS_DIR' folder ${BOLD}removed${GREEN} from $DEST_THEME_ICONS_PATH/ succesfully!${NC}"
-            fi
-        fi
     fi
 }
 
