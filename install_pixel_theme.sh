@@ -29,6 +29,19 @@ DEST_LAUNCHING_IMAGES_PATH="/opt/retropie/configs"
 GIT_LAUNCHING_IMAGES_URL="https://github.com/ehettervik/es-runcommand-splash.git"
 CURL_LAUNCHING_IMAGES_URL="https://api.github.com/repos/ehettervik/es-runcommand-splash"
 
+function check_dependencies() {
+    if ! which git > /dev/null; then
+        echo -e "${RED}ERROR: git is not installed!${NC}"
+        echo "Please install it with 'sudo apt-get install git'."
+        exit
+    fi
+    if ! hash git > /dev/null 2>&1; then
+        echo -e "${RED}ERROR: git is not installed!${NC}"
+        echo "Please install it with 'sudo apt-get install git'."
+        exit
+    fi
+}
+
 function install_theme_select() {
     text="install"
     if [[ $overwrite == true ]]; then
@@ -50,65 +63,37 @@ function install_theme_select() {
 }
 
 function install_theme() {
-    if hash git >/dev/null 2>&1; then
-        if [[ -d $SRC_THEME_PATH/.git ]]; then
-            cd $SRC_THEME_PATH
-            echo -e "${YELLOW}${THEME^} theme repository already cloned/installed.${NC}"
-            check_for_updates
-            if [[ $status == "up-to-date" ]]; then
+    check_dependencies
+    if [[ -d $SRC_THEME_PATH/.git ]]; then
+        cd $SRC_THEME_PATH
+        echo -e "${YELLOW}${THEME^} theme already cloned/installed.${NC}"
+        check_for_updates
+        if [[ $status == "up-to-date" ]]; then
+            install_icons_select
+            install_splashscreen_select
+            install_launching_images_select
+        else
+            echo $status
+        fi
+    else
+        if [[ $(curl $CURL_THEME_URL | awk -F\" '/message/ {print $(NF-1)}') == "Not Found" ]]; then
+            echo -e "${RED}This repository $CURL_THEME_URL doesn't exist.${NC}"
+        else
+            echo "Installing ${THEME^} theme ..."
+            git clone --depth=1 $GIT_THEME_URL $SRC_THEME_PATH
+            success=$?
+            if [[ $success -eq 0 ]]; then
+                echo -e "${GREEN}${THEME^} theme cloned/installed successfully!${NC}"
                 install_icons_select
                 install_splashscreen_select
                 install_launching_images_select
+                echo -e "\nFinishing ...\n"
+                echo -e "\n${GREEN}${THEME^} theme installed successfully!${NC}\n"
             else
-                echo $status
-            fi
-        else
-            echo "Installing ${THEME^} theme ..."
-            if [[ $(curl $CURL_THEME_URL | awk -F\" '/message/ {print $(NF-1)}') == "Not Found" ]]; then
-                echo -e "${RED}This repository $CURL_THEME_URL doesn't exist.${NC}"
-            else
-                git clone --depth=1 $GIT_THEME_URL $SRC_THEME_PATH
-                success=$?
-                if [[ $success -eq 0 ]]; then
-                    echo -e "${GREEN}${THEME^} theme cloned/installed successfully!${NC}"
-                    install_icons_select
-                    install_splashscreen_select
-                    install_launching_images_select
-                    echo -e "\nFinishing ...\n"
-                    echo -e "\n${GREEN}${THEME^} theme installed successfully!${NC}\n"
-                else
-                    echo -e "\n${RED}Something went wrong :_(${NC}"
-                    echo -e "${RED}Couldn't resolve $GIT_THEME_URL${NC}\n"
-                fi
+                echo -e "\n${RED}Something went wrong :_(${NC}"
+                echo -e "${RED}Couldn't resolve $GIT_THEME_URL${NC}\n"
             fi
         fi
-    else
-        echo -e "${RED}git NOT installed.${ND}"
-        echo -e "${PURPLE}Do you wish to ${BOLD}install${PURPLE} git?${NC}"
-        select yn in "Yes" "No"; do
-            case $yn in
-                Yes )
-                    sudo apt-get install git lsb-release
-                break;;
-                No ) 
-                    exit
-                break;;
-                * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
-            esac
-        done
-    fi
-}
-
-function uninstall_theme() {
-    uninstall_icons
-    uninstall_splashscreen
-    uninstall_launching_images
-    echo -e "\nFinishing ...\n"
-    if [[ -d $SRC_THEME_PATH ]]; then
-        rm -rf $SRC_THEME_PATH
-        echo -e "\n${GREEN}${THEME^} theme removed from EmulationStation successfully!${NC}\n"
-    else
-        echo -e "\nNo ${THEME^} theme repository to remove in $SRC_THEME_PATH/ ... Move along!\n"
     fi
 }
 
@@ -123,6 +108,19 @@ function uninstall_theme_select() {
         * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
     esac
     done
+}
+
+function uninstall_theme() {
+    uninstall_icons
+    uninstall_splashscreen
+    uninstall_launching_images
+    echo -e "\nFinishing ...\n"
+    if [[ -d $SRC_THEME_PATH ]]; then
+        rm -rf $SRC_THEME_PATH
+        echo -e "\n${GREEN}${THEME^} theme removed successfully!${NC}\n"
+    else
+        echo -e "\nNo ${THEME^} theme repository to remove in $SRC_THEME_PATH/ ... Move along!\n"
+    fi
 }
 
 function install_icons_select() {
@@ -147,65 +145,56 @@ function install_icons_select() {
 
 function install_icons() {
     if [[ ! -d $SRC_THEME_ICONS_PATH ]]; then
-        #echo -e "${RED}$SRC_THEME_ICONS_PATH/ doesn't exist!${NC}"
         echo "It seems like ${THEME^} theme it's not installed ..."
         install_theme_select
-    elif [[ ! "(ls -A $SRC_THEME_ICONS_PATH)" ]]; then
-        echo -e "${RED}$SRC_THEME_ICONS_PATH/ is empty!${NC}"
-        exit
+    elif [[ ! "$(ls -A $SRC_THEME_ICONS_PATH)" ]]; then
+        echo -e "${RED}Can't install icons because $SRC_THEME_ICONS_PATH/ is empty!${NC}"
     else
         if [[ ! -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
             echo -e "\nCreating '$BACKUP_ICONS_DIR' folder in $DEST_THEME_ICONS_PATH/ ...\n"
             mkdir $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
             echo -e "\n${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ created successfully!${NC}\n"
-            backup_icons
-            copy_icons_src_to_dest
+            backup_default_icons
+            copy_theme_icons
         else
-            if [[ ! "(ls -A $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR)" ]]; then
-                echo -e "${RED}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ is empty!${NC}"
-            else
+            if [[ "$(ls -A $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR)" ]]; then
                 if [[ $overwrite == true ]]; then
-                    copy_icons_src_to_dest
+                    copy_theme_icons
                 else
                     overwrite=true
                     install_icons_select $overwrite
                 fi
-
+            else
+                backup_default_icons
             fi
         fi
     fi
 }
 
-function backup_icons() {
+function backup_default_icons() {
     dest_icons=($DEST_THEME_ICONS_PATH/*)
     for dest_icon in "${dest_icons[@]}"; do
         if [[ -f "$dest_icon" ]]; then
             echo "Copying '$(basename "$dest_icon")' into $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
             cp $dest_icon $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
             echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/$(basename "$dest_icon") copied successfully!${NC}"
-            ok=true
         fi
     done
     echo -e "\nFinishing ...\n"
-    if [[ $ok == true ]]; then
-        echo -e "\n${GREEN}All RetroPie's default icons backed up in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}\n"
-    fi
+    echo -e "\n${GREEN}All RetroPie's default icons backed up in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}\n"
 }
 
-function copy_icons_src_to_dest() {
+function copy_theme_icons() {
     src_icons=($SRC_THEME_ICONS_PATH/*)
     for src_icon in "${src_icons[@]}"; do
         if [[ -f "$src_icon" ]]; then
             echo "Copying '$(basename "$src_icon")' into $DEST_THEME_ICONS_PATH/ ..."
             cp $src_icon $DEST_THEME_ICONS_PATH
             echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$(basename "$src_icon") copied successfully!${NC}"
-            ok=true
         fi
     done
     echo -e "\nFinishing ...\n"
-    if [[ $ok == true ]]; then
-        echo -e "\n${GREEN}All ${THEME^} theme's icons copied in $DEST_THEME_ICONS_PATH/ successfully!${NC}\n"
-    fi
+    echo -e "\n${GREEN}All ${THEME^} theme's icons copied in $DEST_THEME_ICONS_PATH/ successfully!${NC}\n"
 }
 
 function uninstall_icons_select() {
@@ -230,7 +219,7 @@ function uninstall_icons() {
         dest_icons=($DEST_THEME_ICONS_PATH/*)
         for dest_icon in "${dest_icons[@]}"; do
             if [[ -f "$dest_icon" ]]; then
-                echo -e "${RED}Removing '$(basename "$dest_icon")' from $DEST_THEME_ICONS_PATH/ ...${NC}"
+                echo "Removing '$(basename "$dest_icon")' from $DEST_THEME_ICONS_PATH/ ..."
                 rm $dest_icon
                 echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$(basename "$dest_icon") removed successfully!${NC}"
                 ok=true
@@ -283,17 +272,20 @@ function install_splashscreen() {
         install_theme_select
     else
         if [[ ! -d $DEST_SPLASHSCREENS_PATH ]]; then
-            echo -e "\nCreating 'splashscreens' folder in /home/pi/RetroPie/ ...\n"
+            echo -e "Creating 'splashscreens' folder in /home/pi/RetroPie/ ..."
             cd /home/pi/RetroPie
             mkdir splashscreens
-            echo -e "\n${GREEN}Splashscreens folder created successfully!${NC}\n"
+            echo -e "${GREEN}Splashscreens folder created successfully!${NC}"
             choose_splashscreen_select
         else
             if [[ "$(ls -A /home/pi/RetroPie/splashscreens)" ]]; then
-                echo -e "\nRemoving splashscreen ...\n"
-                rm -f /home/pi/RetroPie/splashscreens/*
-                echo -e "\n${GREEN}Splashscreen removed successfully!${NC}\n"
-                choose_splashscreen_select
+                if [[ $overwrite == true ]]; then
+                    rm -f $DEST_SPLASHSCREENS_PATH/*
+                    choose_splashscreen_select
+                else
+                    overwrite=true
+                    install_splashscreen_select $overwrite
+                fi
             else
                 choose_splashscreen_select
             fi
@@ -324,10 +316,10 @@ function choose_splashscreen_select() {
 
 function uninstall_splashscreen() {
     if [[ -d $DEST_SPLASHSCREENS_PATH ]]; then
-        rm -rf $DEST_SPLASHSCREENS_PATH
+        rm -f $DEST_SPLASHSCREENS_PATH/*
         echo -e "\n${GREEN}Splashscreen removed from $DEST_SPLASHSCREENS_PATH/ successfully!${NC}\n"
     else
-        echo -e "\nNo splashscreen to remove in $DEST_SPLASHSCREENS_PATH/ ... Move along!\n"
+        echo -e "${YELLOW}No splashscreen to remove in $DEST_SPLASHSCREENS_PATH/ ... Move along!${NV}"
     fi
 }
 
@@ -447,7 +439,7 @@ function uninstall_launching_images() {
         echo -e "${RED}$DEST_LAUNCHING_IMAGES_PATH/ doesn't exist!${NC}"
         exit
     else
-        if [[ ! "(ls -A $DEST_LAUNCHING_IMAGES_PATH)" ]]; then
+        if [[ ! "$(ls -A $DEST_LAUNCHING_IMAGES_PATH)" ]]; then
             echo -e "${RED}$DEST_LAUNCHING_IMAGES_PATH/ is empty!${NC}"
             exit
         fi
