@@ -74,11 +74,11 @@ function install_theme() {
                     install_icons_select
                     install_splashscreen_select
                     install_launching_images_select
-                    echo "Finishing..."
-                    echo -e "${GREEN}${THEME^} theme installed successfully!${NC}"
+                    echo -e "\nFinishing ...\n"
+                    echo -e "\n${GREEN}${THEME^} theme installed successfully!${NC}\n"
                 else
-                    echo -e "${RED}Something went wrong :_(${NC}"
-                    echo -e "${RED}Couldn't resolve $GIT_THEME_URL${NC}"
+                    echo -e "\n${RED}Something went wrong :_(${NC}"
+                    echo -e "${RED}Couldn't resolve $GIT_THEME_URL${NC}\n"
                 fi
             fi
         fi
@@ -386,11 +386,8 @@ function copy_launching_images() {
         echo -e "${RED}$SRC_LAUNCHING_IMAGES_PATH/ doesn't exist!${NC}"
         install_launching_images_systems_select
     fi
-
     dirs=($SRC_LAUNCHING_IMAGES_PATH/*)
- 
     #echo "There are ${#dirs[@]}" directories in the current path
-
     for dir in "${dirs[@]}"; do
         if [[ -d "$dir" ]]; then
             #dir="${dir%/}"
@@ -412,13 +409,12 @@ function copy_launching_images() {
             fi
         fi
     done
-
     echo -e "\nFinishing ...\n"
-        if [[ $ok != true ]]; then
-            overwrite=true
-            install_launching_images_systems_select $overwrite
-        else
-            echo -e "${GREEN}All (possible) launching images copied successfully!${NC}"
+    if [[ $ok != true ]]; then
+        overwrite=true
+        install_launching_images_systems_select $overwrite
+    else
+        echo -e "\n${GREEN}All (possible) launching images copied successfully!${NC}\n"
     fi
 }
 
@@ -499,20 +495,14 @@ function uninstall_launching_images() {
 function check_for_updates() {
     echo "Let's see if there are any updates ..."
     git remote update
-
     UPSTREAM=${1:-'@{u}'}
     LOCAL=$(git rev-parse @)
     REMOTE=$(git rev-parse "$UPSTREAM")
     BASE=$(git merge-base @ "$UPSTREAM")
-
     if [[ $LOCAL == $REMOTE ]]; then
         output="${GREEN}Up-to-date${NC}"
         status="up-to-date"
-        #if [[  ]]; then
-            overwrite=true
-        #else
-            #overwrite=false
-        #fi
+        overwrite=true
     elif [[ $LOCAL == $BASE ]]; then
         output="Need to pull"
         status="need-to-pull"
@@ -523,7 +513,6 @@ function check_for_updates() {
         output="Diverged"
         status="diverged"
     fi
-    
     echo -e $output
 }
 
