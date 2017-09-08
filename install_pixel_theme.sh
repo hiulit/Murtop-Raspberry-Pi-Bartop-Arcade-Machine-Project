@@ -29,19 +29,6 @@ DEST_LAUNCHING_IMAGES_PATH="/opt/retropie/configs"
 GIT_LAUNCHING_IMAGES_URL="https://github.com/ehettervik/es-runcommand-splash.git"
 CURL_LAUNCHING_IMAGES_URL="https://api.github.com/repos/ehettervik/es-runcommand-splash"
 
-function check_dependencies() {
-    if ! which git > /dev/null; then
-        echo -e "${RED}ERROR: git is not installed!${NC}"
-        echo "Please install it with 'sudo apt-get install git'."
-        exit
-    fi
-    if ! hash git > /dev/null 2>&1; then
-        echo -e "${RED}ERROR: git is not installed!${NC}"
-        echo "Please install it with 'sudo apt-get install git'."
-        exit
-    fi
-}
-
 function install_theme_select() {
     text="install"
     if [[ $overwrite == true ]]; then
@@ -67,7 +54,7 @@ function install_theme() {
     if [[ -d $SRC_THEME_PATH/.git ]]; then
         cd $SRC_THEME_PATH
         echo -e "${YELLOW}${THEME^} theme already cloned/installed.${NC}"
-        check_for_updates
+        check_updates
         if [[ $status == "up-to-date" ]]; then
             install_icons_select
             install_splashscreen_select
@@ -129,7 +116,7 @@ function install_icons_select() {
         text="overwrite"
         echo -e "${YELLOW}There are already icons for ${THEME^} theme installed.${NC}"
     fi
-    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's icons?${NC}"
+    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's ${BOLD}icons${PURPLE}?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
@@ -251,7 +238,7 @@ function install_splashscreen_select() {
         text="overwrite"
         echo -e "${YELLOW}There is already a splashscreen for ${THEME^} theme installed.${NC}"
     fi
-    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's splashscreen?${NC}"
+    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's ${BOLD}splashscreen${PURPLE}?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
@@ -329,7 +316,7 @@ function install_launching_images_select() {
         text="overwrite"
         echo -e "${YELLOW}There are already launching images for ${THEME^} theme installed.${NC}"
     fi
-    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's launching images?${NC}"
+    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's ${BOLD}launching images${PURPLE}?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
@@ -351,7 +338,7 @@ function install_launching_images_systems_select() {
         text="overwrite"
         echo -e "${YELLOW}Launching images already installed.${NC}"
     fi
-    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's launching images for each system?${NC}"
+    echo -e "${PURPLE}Do you wish to ${BOLD}$text${PURPLE} ${THEME^} theme's ${BOLD}launching images for each system${PURPLE}?${NC}"
     select yn in "Yes" "No"; do
         case $yn in
             Yes )
@@ -407,10 +394,9 @@ function install_launching_images() {
         if [[  -e $SRC_LAUNCHING_IMAGES_PATH/.git ]]; then
             echo -e "${YELLOW}Launching images repository already installed.${NC}"
             cd $SRC_LAUNCHING_IMAGES_PATH
-            check_for_updates
+            check_updates
             if [[ $status == "up-to-date" ]]; then
-                overwrite=true
-                install_launching_images_systems_select $overwrite
+                install_launching_images_systems_select
             else
                 echo $status
             fi
@@ -449,7 +435,7 @@ function uninstall_launching_images() {
         if [[ -d "$dir" ]]; then
             if [[ -d "$dir" ]]; then
                 if [[ -e "$dir/launching.png" ]]; then
-                    echo -e "${RED}Removing 'launching.png' from $dir/ ...${NC}"
+                    echo "Removing 'launching.png' from $dir/ ..."
                     rm -f $dir/launching.png
                     echo -e "${GREEN}$dir/launching.png removed successfully!${NC}"
                     ok=true
@@ -476,7 +462,20 @@ function uninstall_launching_images() {
     fi
 }
 
-function check_for_updates() {
+function check_dependencies() {
+    if ! which git > /dev/null; then
+        echo -e "${RED}ERROR: git is not installed!${NC}"
+        echo "Please install it with 'sudo apt-get install git'."
+        exit
+    fi
+    if ! hash git > /dev/null 2>&1; then
+        echo -e "${RED}ERROR: git is not installed!${NC}"
+        echo "Please install it with 'sudo apt-get install git'."
+        exit
+    fi
+}
+
+function check_updates() {
     echo "Let's see if there are any updates ..."
     git remote update
     UPSTREAM=${1:-'@{u}'}
@@ -499,14 +498,9 @@ function check_for_updates() {
     echo -e $output
 }
 
-function check_directory() {
-    if [[ -d $directory_to_check ]]; then
-        echo -e "${RED}$directory_to_check doesn't exist${NC}"
-    fi
-    if [[ -d $directory_to_check/.git ]]; then
-        echo -e "${YELLOW}${THEME^} theme repository already cloned/installed.${NC}"
-    fi
-}
+# declare -F | cut -d ' ' -f3
+
+#~ install_theme_select
 
 # Call arguments verbatim
 $@
