@@ -150,41 +150,49 @@ function install_icons() {
         #echo -e "${RED}$SRC_THEME_ICONS_PATH/ doesn't exist!${NC}"
         echo "It seems like ${THEME^} theme it's not installed ..."
         install_theme_select
+    elif [[ ! "(ls -A $SRC_THEME_ICONS_PATH)" ]]; then
+        echo -e "${RED}$SRC_THEME_ICONS_PATH/ is empty!${NC}"
+        exit
     else
-        if [[ ! "(ls -A $SRC_THEME_ICONS_PATH)" ]]; then
-            echo -e "${RED}$SRC_THEME_ICONS_PATH/ is empty!${NC}"
-            exit
-        fi
-    fi
-    if [[ ! -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
-        echo "Creating '$BACKUP_ICONS_DIR' folder in $DEST_THEME_ICONS_PATH/ ..."
-        mkdir $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
-        echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ created successfully!${NC}"
-    else
-        if [[ ! "(ls -A $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR)" ]]; then
-            echo -e "${RED}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ is empty!${NC}"
+        if [[ ! -d $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR ]]; then
+            echo -e "\nCreating '$BACKUP_ICONS_DIR' folder in $DEST_THEME_ICONS_PATH/ ...\n"
+            mkdir $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
+            echo -e "\n${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ created successfully!${NC}\n"
+            backup_icons
+            copy_icons_src_to_dest
         else
-            if [[ $overwrite != true ]]; then
-                overwrite=true
-                install_icons_select $overwrite
+            if [[ ! "(ls -A $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR)" ]]; then
+                echo -e "${RED}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ is empty!${NC}"
+            else
+                if [[ $overwrite == true ]]; then
+                    copy_icons_src_to_dest
+                else
+                    overwrite=true
+                    install_icons_select $overwrite
+                fi
+
             fi
         fi
     fi
-    if [[ $overwrite != true ]]; then
-        dest_icons=($DEST_THEME_ICONS_PATH/*)
-        for dest_icon in "${dest_icons[@]}"; do
-            if [[ -f "$dest_icon" ]]; then
-                echo "Copying '$(basename "$dest_icon")' into $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
-                cp $dest_icon $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
-                echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/$(basename "$dest_icon") copied successfully!${NC}"
-                ok=true
-            fi
-        done
-        echo -e "\nFinishing ...\n"
-        if [[ $ok == true ]]; then
-            echo -e "\n${GREEN}All RetroPie's default icons backed up in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}\n"
+}
+
+function backup_icons() {
+    dest_icons=($DEST_THEME_ICONS_PATH/*)
+    for dest_icon in "${dest_icons[@]}"; do
+        if [[ -f "$dest_icon" ]]; then
+            echo "Copying '$(basename "$dest_icon")' into $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ ..."
+            cp $dest_icon $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR
+            echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/$(basename "$dest_icon") copied successfully!${NC}"
+            ok=true
         fi
+    done
+    echo -e "\nFinishing ...\n"
+    if [[ $ok == true ]]; then
+        echo -e "\n${GREEN}All RetroPie's default icons backed up in $DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/ successfully!${NC}\n"
     fi
+}
+
+function copy_icons_src_to_dest() {
     src_icons=($SRC_THEME_ICONS_PATH/*)
     for src_icon in "${src_icons[@]}"; do
         if [[ -f "$src_icon" ]]; then
@@ -222,8 +230,6 @@ function uninstall_icons() {
         dest_icons=($DEST_THEME_ICONS_PATH/*)
         for dest_icon in "${dest_icons[@]}"; do
             if [[ -f "$dest_icon" ]]; then
-                #echo "$dest_icon"
-                #echo $(basename "$dest_icon")
                 echo -e "${RED}Removing '$(basename "$dest_icon")' from $DEST_THEME_ICONS_PATH/ ...${NC}"
                 rm $dest_icon
                 echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$(basename "$dest_icon") removed successfully!${NC}"
@@ -233,8 +239,6 @@ function uninstall_icons() {
         backup_icons=($DEST_THEME_ICONS_PATH/$BACKUP_ICONS_DIR/*)
         for backup_icon in "${backup_icons[@]}"; do
             if [[ -f "$backup_icon" ]]; then
-                #echo "$backup_icon"
-                #echo $(basename "$backup_icon")
                 echo "Copying '$(basename "$backup_icon")' to $DEST_THEME_ICONS_PATH/ ..."
                 cp $backup_icon $DEST_THEME_ICONS_PATH/
                 echo -e "${GREEN}$DEST_THEME_ICONS_PATH/$(basename "$backup_icon") copied successfully!${NC}"
@@ -250,27 +254,6 @@ function uninstall_icons() {
             fi
         fi
     fi
-}
-
-function splashscreen_select() {
-    echo -e "${PURPLE}Do you wish the 16:9 (widescreen) or the 4:3 (squarescreen) splashscreen?${NC}"
-    select splashscreen in "16:9 (widescreen)" "4:3 (squarescreen)" "None"; do
-        case $splashscreen in
-            "16:9 (widescreen)" )
-                cp $SRC_SPLASHSCREENS_PATH/splash16-9.png $DEST_SPLASHSCREENS_PATH
-                echo -e "${GREEN}$splashscreen splashscreen copied successfully!${NC}"
-            break;;
-            "4:3 (squarescreen)" )
-                cp $SRC_SPLASHSCREENS_PATH/splash4-3.png $DEST_SPLASHSCREENS_PATH
-                echo -e "${GREEN}$splashscreen splashscreen copied successfully!${NC}"
-            break;;
-            "None" )
-                return
-            break;;
-            * )
-                echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
-        esac
-    done
 }
 
 function install_splashscreen_select() {
@@ -298,36 +281,45 @@ function install_splashscreen() {
     if [[ ! -d $SRC_THEME_PATH ]]; then
         echo -e "${RED}${THEME^} theme doesn't exist. Can't install splashscreens!${NC}"
         install_theme_select
-     else
+    else
         if [[ ! -d $DEST_SPLASHSCREENS_PATH ]]; then
-            echo "Creating 'splashscreens' folder in /home/pi/RetroPie/ ..."
+            echo -e "\nCreating 'splashscreens' folder in /home/pi/RetroPie/ ...\n"
             cd /home/pi/RetroPie
             mkdir splashscreens
-            echo -e "${GREEN}Splashscreens folder created successfully!${NC}"
-            splashscreen_select
+            echo -e "\n${GREEN}Splashscreens folder created successfully!${NC}\n"
+            choose_splashscreen_select
         else
             if [[ "$(ls -A /home/pi/RetroPie/splashscreens)" ]]; then
-                echo -e "${YELLOW}There is already a splashscreen installed.${NC}"
-                echo -e "${PURPLE}Do you wish to ${BOLD}overwrite${PURPLE} the splashscreen?${NC}"
-                select yn in "Yes" "No"; do
-                    case $yn in
-                        Yes )
-                            echo "Removing splashscreen ..."
-                            rm -f /home/pi/RetroPie/splashscreens/*
-                            echo "Splashscreen removed successfully!"
-                            splashscreen_select
-                        break;;
-                        No )
-                            return
-                        break;;
-                        * ) echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
-                    esac
-                done
+                echo -e "\nRemoving splashscreen ...\n"
+                rm -f /home/pi/RetroPie/splashscreens/*
+                echo -e "\n${GREEN}Splashscreen removed successfully!${NC}\n"
+                choose_splashscreen_select
             else
-                splashscreen_select
+                choose_splashscreen_select
             fi
         fi
     fi
+}
+
+function choose_splashscreen_select() {
+    echo -e "${PURPLE}Do you wish the 16:9 (widescreen) or the 4:3 (squarescreen) splashscreen?${NC}"
+    select splashscreen in "16:9 (widescreen)" "4:3 (squarescreen)" "None"; do
+        case $splashscreen in
+            "16:9 (widescreen)" )
+                cp $SRC_SPLASHSCREENS_PATH/splash16-9.png $DEST_SPLASHSCREENS_PATH
+                echo -e "${GREEN}$splashscreen splashscreen copied successfully!${NC}"
+            break;;
+            "4:3 (squarescreen)" )
+                cp $SRC_SPLASHSCREENS_PATH/splash4-3.png $DEST_SPLASHSCREENS_PATH
+                echo -e "${GREEN}$splashscreen splashscreen copied successfully!${NC}"
+            break;;
+            "None" )
+                return
+            break;;
+            * )
+                echo -e "${RED}$INVALID_OPTION_MESSAGE${NC}"
+        esac
+    done
 }
 
 function uninstall_splashscreen() {
@@ -502,7 +494,6 @@ function check_for_updates() {
     if [[ $LOCAL == $REMOTE ]]; then
         output="${GREEN}Up-to-date${NC}"
         status="up-to-date"
-        overwrite=true
     elif [[ $LOCAL == $BASE ]]; then
         output="Need to pull"
         status="need-to-pull"
