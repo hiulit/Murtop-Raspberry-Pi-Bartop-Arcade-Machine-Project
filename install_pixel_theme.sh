@@ -6,37 +6,13 @@ YELLOW="\033[0;33m"
 PURPLE="\033[0;35m"
 NC="\033[0m"
 
-BOLD=$(tput bold)
-NORMAL=$(tput sgr0)
-
-REPO="Retropie"
-THEME="pixel"
-
-#~ INVALID_OPTION_MESSAGE="Invalid option. Please, enter a valid option (number)."
-BACKTITLE="Backtitle"
-
-PI_PATH="/home/pi"
-RETROPIE_PATH="$PI_PATH/RetroPie"
-
-#~ SRC_THEME_PATH="/etc/emulationstation/themes/$THEME"
-#~ SRC_THEME_ICONS_PATH="$SRC_THEME_PATH/retropie/icons"
-#~ DEST_THEME_ICONS_PATH="$RETROPIE_PATH/retropiemenu/icons"
-BACKUP_ICONS_DIR="backup-icons"
-#~ GIT_THEME_URL="https://github.com/$repo/es-theme-$theme.git"
-#~ CURL_THEME_URL="https://api.github.com/repos/$REPO/es-theme-"
-
-#~ SRC_SPLASHSCREENS_PATH=$SRC_THEME_PATH
-#~ DEST_SPLASHSCREENS_PATH="$RETROPIE_PATH/splashscreens"
-
-#~ SRC_LAUNCHING_IMAGES_PATH="$PI_PATH/launching-images"
-#~ DEST_LAUNCHING_IMAGES_PATH="/opt/retropie/configs"
-#~ GIT_LAUNCHING_IMAGES_URL="https://github.com/ehettervik/es-runcommand-splash.git"
-#~ CURL_LAUNCHING_IMAGES_URL="https://api.github.com/repos/ehettervik/es-runcommand-splash"
-
 themes_path="/etc/emulationstation/themes"
 icons_path="/home/pi/RetroPie/retropiemenu/icons"
+backup_icons_dir="backup-icons"
 splashscreens_path="/home/pi/RetroPie/splashscreens"
 launching_images_path="/opt/retropie/configs"
+
+backtitle="Backtitle"
 
 function install_theme() {
     check_dependencies
@@ -53,16 +29,15 @@ function install_theme() {
         fi
     else
         if [[ $(curl "https://api.github.com/repos/$repo/es-theme-$theme" | awk -F\" '/message/ {print $(NF-1)}') == "Not Found" ]]; then
-            dialog --backtitle "$BACKTITLE" --msgbox "This repository https://api.github.com/repos/$repo/es-theme-$theme doesn't exist." 10 40 2>&1 >/dev/tty
+            dialog --backtitle "$backtitle" --msgbox "This repository https://api.github.com/repos/$repo/es-theme-$theme doesn't exist." 10 40 2>&1 >/dev/tty
         else
             echo "Installing ${theme^} ..."
             git clone --depth 1 "https://github.com/$repo/es-theme-$theme.git" "$themes_path/$theme"
             success=$?
             if [[ $success -eq 0 ]]; then
                 echo "${theme^} installed successfully!"
-                #~ dialog --backtitle "$BACKTITLE" --msgbox "${theme^} installed successfully!" 6 40 2>&1 >/dev/tty
             else
-                dialog --backtitle "$BACKTITLE" --msgbox "Something went wrong :_(\nCouldn't resolve https://github.com/$repo/es-theme-$theme.git" 10 40 2>&1 >/dev/tty            
+                dialog --backtitle "$backtitle" --msgbox "Something went wrong :_(\nCouldn't resolve https://github.com/$repo/es-theme-$theme.git" 10 40 2>&1 >/dev/tty            
             fi
         fi
     fi
@@ -75,9 +50,8 @@ function uninstall_theme() {
     if [[ -d "$themes_path/$theme" ]]; then
         rm -rf "$themes_path/$theme"
         echo "${theme^} removed successfully!"
-        #~ dialog --backtitle "$BACKTITLE" --msgbox "${theme^} removed successfully!" 6 40 2>&1 >/dev/tty
     else
-        dialog --backtitle "$BACKTITLE" --msgbox "No '${theme}' folder to remove in $themes_path/ ... Move along!" 6 40 2>&1 >/dev/tty
+        dialog --backtitle "$backtitle" --msgbox "No '${theme}' folder to remove in $themes_path/ ... Move along!" 6 40 2>&1 >/dev/tty
     fi
 }
 
@@ -86,13 +60,13 @@ function install_icons() {
     if [[ ! "$(ls -A $themes_path/$theme/retropie/icons)" ]]; then
         echo "There are no icons!"
     else
-        if [[ ! -d "$icons_path/$BACKUP_ICONS_DIR" ]]; then
-            mkdir -p $icons_path/$BACKUP_ICONS_DIR
-            echo "$icons_path/$BACKUP_ICONS_DIR/ created successfully!"
+        if [[ ! -d "$icons_path/$backup_icons_dir" ]]; then
+            mkdir -p $icons_path/$backup_icons_dir
+            echo "$icons_path/$backup_icons_dir/ created successfully!"
             backup_default_icons
             copy_theme_icons
         else
-            if [[ "$(ls -A $icons_path/$BACKUP_ICONS_DIR)" ]]; then
+            if [[ "$(ls -A $icons_path/$backup_icons_dir)" ]]; then
                 copy_theme_icons
             else
                 backup_default_icons
@@ -105,11 +79,11 @@ function backup_default_icons() {
     dest_icons=($icons_path/*)
     for dest_icon in "${dest_icons[@]}"; do
         if [[ -f "$dest_icon" ]]; then
-            cp "$dest_icon" "$icons_path/$BACKUP_ICONS_DIR"
-            echo "$icons_path/$BACKUP_ICONS_DIR/$(basename "$dest_icon") copied successfully!"
+            cp "$dest_icon" "$icons_path/$backup_icons_dir"
+            echo "$icons_path/$backup_icons_dir/$(basename "$dest_icon") copied successfully!"
         fi
     done
-    echo "All RetroPie's default icons backed up in $icons_path/$BACKUP_ICONS_DIR/ successfully!"
+    echo "All RetroPie's default icons backed up in $icons_path/$backup_icons_dir/ successfully!"
 }
 
 function copy_theme_icons() {
@@ -124,7 +98,7 @@ function copy_theme_icons() {
 }
 
 function uninstall_icons() {
-    if [[ ! -d "$icons_path/$BACKUP_ICONS_DIR" ]]; then
+    if [[ ! -d "$icons_path/$backup_icons_dir" ]]; then
         echo "No icons to uninstall ... Move along!"
     else
         dest_icons=($icons_path/*)
@@ -135,17 +109,17 @@ function uninstall_icons() {
             fi
         done
         echo "All ${theme^} icons removed successfully!"
-        backup_icons=($icons_path/$BACKUP_ICONS_DIR/*)
+        backup_icons=($icons_path/$backup_icons_dir/*)
         for backup_icon in "${backup_icons[@]}"; do
             if [[ -f "$backup_icon" ]]; then 
                 cp "$backup_icon" "$icons_path"
                 echo "$icons_path/$(basename "$backup_icon") copied successfully!"
             fi
         done
-        echo "All icons restored from $icons_path/$BACKUP_ICONS_DIR/ succesfully!"
-        if [[ -d "$icons_path/$BACKUP_ICONS_DIR" ]]; then
-            rm -rf "$icons_path/$BACKUP_ICONS_DIR"
-            echo "$icons_path/$BACKUP_ICONS_DIR/ removed succesfully!"
+        echo "All icons restored from $icons_path/$backup_icons_dir/ succesfully!"
+        if [[ -d "$icons_path/$backup_icons_dir" ]]; then
+            rm -rf "$icons_path/$backup_icons_dir"
+            echo "$icons_path/$backup_icons_dir/ removed succesfully!"
         fi
     fi
 }
@@ -169,7 +143,7 @@ function choose_splashscreen() {
             ((i++))
         fi
     done
-    local cmd=(dialog --backtitle "$BACKTITLE" --menu "Choose an option for ${theme^} splashscreen" 15 50 06)
+    local cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^} splashscreen" 15 50 06)
     local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     case "$choice" in
         *)
@@ -181,7 +155,6 @@ function choose_splashscreen() {
             rm -f "$splashscreens_path/*"
             cp "$themes_path/$theme/$splashscreen" "$splashscreens_path"
             echo "$splashscreen installed successfully!"
-            #~ dialog --backtitle "$BACKTITLE" --msgbox "$splashscreen installed successfully!" 6 40 2>&1 >/dev/tty
             ;; 
     esac
 }
@@ -211,7 +184,7 @@ function install_launching_images() {
         fi
     else
         if [[ $(curl "https://api.github.com/repos/$repo/es-runcommand-splash" | awk -F\" '/message/ {print $(NF-1)}') == "Not Found" ]]; then
-            dialog --backtitle "$BACKTITLE" --msgbox "This repository https://api.github.com/repos/$repo/es-runcommand-splash doesn't exist." 10 40 2>&1 >/dev/tty
+            dialog --backtitle "$backtitle" --msgbox "This repository https://api.github.com/repos/$repo/es-runcommand-splash doesn't exist." 10 40 2>&1 >/dev/tty
         else
             echo "Installing Launching images ..."
             git clone --depth 1 "https://github.com/$repo/es-runcommand-splash.git" "$themes_path/$theme/launching-images"
@@ -219,9 +192,8 @@ function install_launching_images() {
             if [[ $success -eq 0 ]]; then
                 copy_launching_images
                 echo "Launching images installed successfully!"
-                #~ dialog --backtitle "$BACKTITLE" --msgbox "Launching images installed successfully!" 10 40 2>&1 >/dev/tty
             else
-                dialog --backtitle "$BACKTITLE" --msgbox "Something went wrong :_(\nCouldn't resolve https://github.com/$repo/es-runcommand-splash.git" 6 40 2>&1 >/dev/tty            
+                dialog --backtitle "$backtitle" --msgbox "Something went wrong :_(\nCouldn't resolve https://github.com/$repo/es-runcommand-splash.git" 6 40 2>&1 >/dev/tty            
             fi
         fi
     fi
@@ -251,15 +223,6 @@ function copy_launching_images() {
 }
 
 function uninstall_launching_images() {
-    #~ if [[ ! -d "$launching_images_path" ]]; then
-        #~ echo -e "${RED}$launching_images_path/ doesn't exist!${NC}"
-        #~ exit
-    #~ else
-        #~ if [[ ! "$(ls -A $launching_images_path)" ]]; then
-            #~ echo -e "${RED}$launching_images_path/ is empty!${NC}"
-            #~ exit
-        #~ fi
-    #~ fi
     dirs=($launching_images_path/*)
     for dir in "${dirs[@]}"; do
         if [[ -d "$dir" ]]; then
@@ -305,21 +268,20 @@ function check_updates() {
     if [[ $LOCAL == $REMOTE ]]; then
         output="up to date"
         status="up-to-date"
-        dialog --backtitle "$BACKTITLE" --msgbox "$input is $output" 6 40 2>&1 >/dev/tty
+        dialog --backtitle "$backtitle" --msgbox "$input is $output" 6 40 2>&1 >/dev/tty
     elif [[ $LOCAL == $BASE ]]; then
         output="needs to pull"
         status="needs-to-pull"
-        dialog --backtitle "$BACKTITLE" --msgbox "$input $output" 6 40 2>&1 >/dev/tty
+        dialog --backtitle "$backtitle" --msgbox "$input $output" 6 40 2>&1 >/dev/tty
     elif [[ $REMOTE == $BASE ]]; then
         output="needs to push"
         status="needs-to-push"
-        dialog --backtitle "$BACKTITLE" --msgbox "$input $output" 6 40 2>&1 >/dev/tty
+        dialog --backtitle "$backtitle" --msgbox "$input $output" 6 40 2>&1 >/dev/tty
     else
         output="diverged"
         status="diverged"
-        dialog --backtitle "$BACKTITLE" --msgbox "$input is $output" 6 40 2>&1 >/dev/tty
+        dialog --backtitle "$backtitle" --msgbox "$input is $output" 6 40 2>&1 >/dev/tty
     fi
-    #~ echo -e $output
 }
 
 function check_theme() {
@@ -363,7 +325,7 @@ function try(){
             ((i++))
         done
         
-        local cmd=(dialog --backtitle "$BACKTITLE" --menu "Choose an option" 15 60 06)
+        local cmd=(dialog --backtitle "$backtitle" --menu "Choose an option" 15 60 06)
         local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
         
         if [[ -n "$choice" && $choice > 0 ]]; then
@@ -375,7 +337,7 @@ function try(){
                 if [[ "$(ls -A $themes_path/$theme/retropie/icons)" ]]; then
                     options+=(3 "Extras")
                 fi
-                cmd=(dialog --backtitle "$BACKTITLE" --menu "Choose an option for ${theme^}" 15 50 06)
+                cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^}" 15 50 06)
                 local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
                 case "$choice" in
                     1)
@@ -388,14 +350,14 @@ function try(){
                         local options=()
                         local status=()
                         
-                        if [[ -d "$icons_path/$BACKUP_ICONS_DIR" ]]; then
+                        if [[ -d "$icons_path/$backup_icons_dir" ]]; then
                             status+=("i")
                             options+=("1" "Update or Uninstall ${theme^} icons (installed)")
                         else
                             status+=("n")
                             options+=("1" "Install ${theme^} icons (not installed)")
                         fi
-                        if [[ "$(ls -A $RETROPIE_PATH/splashscreens)" ]]; then
+                        if [[ "$(ls -A $splashscreens_path)" ]]; then
                             status+=("i")
                             options+=("2" "Update or Uninstall ${theme^} splashscreen (installed)")
                         else
@@ -416,13 +378,13 @@ function try(){
                             options+=("3" "Install ${theme^} launching images (not installed)")
                         fi
                         
-                        cmd=(dialog --backtitle "$BACKTITLE" --menu "Choose an option for ${theme^}" 15 75 06)
+                        cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^}" 15 75 06)
                         local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
                         case "$choice" in
                             1)
                                 if [[ "${status[choice-1]}" == "i" ]]; then
                                     options=(1 "Update ${theme^} icons" 2 "Uninstall ${theme^} icons")
-                                    cmd=(dialog --backtitle "$BACKTITLE" --menu "Choose an option for ${theme^} icons" 15 50 06)
+                                    cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^} icons" 15 50 06)
                                     local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
                                     case "$choice" in
                                         1)
@@ -439,7 +401,7 @@ function try(){
                             2)
                                 if [[ "${status[choice-1]}" == "i" ]]; then
                                     options=(1 "Update ${theme^} splashscreen" 2 "Uninstall ${theme^} splashscreen")
-                                    cmd=(dialog --backtitle "$BACKTITLE" --menu "Choose an option for ${theme^} splashscreen" 15 50 06)
+                                    cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^} splashscreen" 15 50 06)
                                     local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
                                     case "$choice" in
                                         1)
@@ -456,7 +418,7 @@ function try(){
                             3)
                                 if [[ "${status[choice-1]}" == "i" ]]; then
                                     options=(1 "Update ${theme^} launching images" 2 "Uninstall ${theme^} launching images")
-                                    cmd=(dialog --backtitle "$BACKTITLE" --menu "Choose an option for ${theme^} launching images" 15 50 06)
+                                    cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^} launching images" 15 50 06)
                                     local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
                                     case "$choice" in
                                         1)
