@@ -151,6 +151,12 @@ function choose_splashscreen() {
     local options=()
     local i=1
     local splashscreens=($(find $themes_path/$theme -maxdepth 1 -type f -iname "*splash*"))
+    if [[ $splashscreens ]]; then
+        echo $splashscreens
+    else
+        echo "hola"
+    fi
+    exit
     for splashscreen in "${splashscreens[@]}"; do
         if [[ -f "$splashscreen" ]]; then 
             options+=("$i" "$(basename "$splashscreen")")
@@ -225,7 +231,7 @@ function copy_launching_images() {
                     if [[ -e "$launching_images_path/$(basename "$dir")/launching.png" ]]; then
                         echo "There is already a 'launching.png' in $launching_images_path/$(basename "$dir")/"
                     else
-                        cp $dir/launching.png" "$launching_images_path/$(basename "$dir")
+                        cp $dir/launching.png $launching_images_path/$(basename "$dir")
                         echo "$launching_images_path/$(basename "$dir")/launching.png copied successfully!"
                     fi
                 else
@@ -364,29 +370,38 @@ function try(){
                     3)
                         local options=()
                         local status=()
+                        local i=1
                         
-                        if [[ -d "$icons_path/$backup_default_icons_dir" && -d "$icons_path/$theme-icons" ]]; then
-                            status+=("i")
-                            options+=("1" "Update or Uninstall ${theme^} icons (installed)")
-                        else
-                            status+=("n")
-                            options+=("1" "Install ${theme^} icons (not installed)")
+                        if [[ -d "$themes_path/$theme/retropie/icons" ]]; then
+                            if [[ -d "$icons_path/$backup_default_icons_dir" && -d "$icons_path/$theme-icons" ]]; then
+                                status+=("i")
+                                options+=("$i" "Update or Uninstall ${theme^} icons (installed)")
+                            else
+                                status+=("n")
+                                options+=("$i" "Install ${theme^} icons (not installed)")
+                            fi
+                            ((i++))
                         fi
                         
-                        if [[ "$(ls -A $splashscreens_path)" ]]; then
-                            status+=("i")
-                            options+=("2" "Update or Uninstall ${theme^} splashscreen (installed)")
-                        else
-                            status+=("n")
-                            options+=("2" "Install ${theme^} splashscreen (not installed)")
+                        if [[ $(find $themes_path/$theme -maxdepth 1 -type f -iname "*splash*") ]]; then
+                            if [[ "$(ls -A $splashscreens_path)" ]]; then
+                                status+=("i")
+                                options+=("$i" "Update or Uninstall ${theme^} splashscreen (installed)")
+                            else
+                                status+=("n")
+                                options+=("$i" "Install ${theme^} splashscreen (not installed)")
+                            fi
+                            ((i++))
                         fi
-                        
-                        if [[ -d "$themes_path/$theme/launching-images" ]]; then
-                            status+=("i")
-                            options+=("3" "Update or Uninstall ${theme^} launching images (installed)")
-                        else
-                            status+=("n")
-                            options+=("3" "Install ${theme^} launching images (not installed)")
+    
+                        if [[ $(curl "https://api.github.com/repos/$repo/es-runcommand-splash" 2>/dev/null | awk -F\" '/message/ {print $(NF-1)}') != "Not Found" ]]; then
+                            if [[ -d "$themes_path/$theme/launching-images" ]]; then
+                                status+=("i")
+                                options+=("$i" "Update or Uninstall ${theme^} launching images (installed)")
+                            else
+                                status+=("n")
+                                options+=("$i" "Install ${theme^} launching images (not installed)")
+                            fi
                         fi
                         
                         cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^}" 15 75 06)
@@ -454,13 +469,6 @@ function try(){
         fi
     done
 }
-
-#~ dest_folders=($icons_path/*)
-#~ for dest_folder in "${dest_folders[@]}"; do
-    #~ [ "$dest_folder" = "$icons_path/pixel-icons" ] && continue
-    rm -rf "$dest_folder"
-    #~ echo $dest_folder
-#~ done
 
 # Call arguments verbatim
 $@
