@@ -8,7 +8,7 @@ NC="\033[0m"
 
 themes_path="/etc/emulationstation/themes"
 icons_path="/home/pi/RetroPie/retropiemenu/icons"
-backup_icons_dir="backup-icons"
+backup_default_icons_dir="backup-default-icons"
 splashscreens_path="/home/pi/RetroPie/splashscreens"
 launching_images_path="/opt/retropie/configs"
 
@@ -19,12 +19,12 @@ function install_theme() {
     if [[ -d "$themes_path/$theme" ]]; then
         if [[ -e "$themes_path/$theme/.git" ]]; then
             echo "${theme^} already installed."
-            cd "$themes_path/$theme"
+            cd $themes_path/$theme
             input="${theme^}"
             check_updates
             cd -
         else
-            rm -rf "$themes_path/$theme"
+            rm -rf $themes_path/$theme
             install_theme
         fi
     else
@@ -48,78 +48,92 @@ function uninstall_theme() {
     uninstall_splashscreen
     uninstall_launching_images
     if [[ -d "$themes_path/$theme" ]]; then
-        rm -rf "$themes_path/$theme"
+        rm -rf $themes_path/$theme
         echo "${theme^} removed successfully!"
     else
-        dialog --backtitle "$backtitle" --msgbox "No '${theme}' folder to remove in $themes_path/ ... Move along!" 6 40 2>&1 >/dev/tty
+        echo "No '${theme}' folder to remove in $themes_path/ ... Move along!"
     fi
 }
 
 function install_icons() {
     check_theme
-    if [[ ! "$(ls -A $themes_path/$theme/retropie/icons)" ]]; then
-        echo "There are no icons!"
+    if [[ ! -d "$themes_path/$theme/retropie/icons" ]]; then
+        echo "There are no icons in ${theme^}. Can't install!"
     else
-        if [[ ! -d "$icons_path/$backup_icons_dir" ]]; then
-            mkdir -p $icons_path/$backup_icons_dir
-            echo "$icons_path/$backup_icons_dir/ created successfully!"
+        if [[ ! -d "$icons_path/$backup_default_icons_dir" ]]; then
+            mkdir -p $icons_path/$backup_default_icons_dir
+            echo "$icons_path/$backup_default_icons_dir/ created successfully!"
             backup_default_icons
             copy_theme_icons
         else
-            if [[ "$(ls -A $icons_path/$backup_icons_dir)" ]]; then
-                copy_theme_icons
-            else
-                backup_default_icons
-            fi
+            copy_theme_icons
         fi
     fi
 }
 
 function backup_default_icons() {
-    dest_icons=($icons_path/*)
-    for dest_icon in "${dest_icons[@]}"; do
-        if [[ -f "$dest_icon" ]]; then
-            cp "$dest_icon" "$icons_path/$backup_icons_dir"
-            echo "$icons_path/$backup_icons_dir/$(basename "$dest_icon") copied successfully!"
-        fi
-    done
-    echo "All RetroPie's default icons backed up in $icons_path/$backup_icons_dir/ successfully!"
-}
-
-function copy_theme_icons() {
-    src_icons=($themes_path/$theme/retropie/icons/*)
-    for src_icon in "${src_icons[@]}"; do
-        if [[ -f "$src_icon" ]]; then
-            cp "$src_icon" "$icons_path"
-            echo "$icons_path/$(basename "$src_icon") copied successfully!"
-        fi
-    done
-    echo "All ${theme^} icons copied in $icons_path/ successfully!"
-}
-
-function uninstall_icons() {
-    if [[ ! -d "$icons_path/$backup_icons_dir" ]]; then
-        echo "No icons to uninstall ... Move along!"
+    if [[ ! -d "$icons_path" ]]; then
+        echo "No icons to backup in $icons_path ... Move along!"
     else
         dest_icons=($icons_path/*)
         for dest_icon in "${dest_icons[@]}"; do
             if [[ -f "$dest_icon" ]]; then
-                rm "$dest_icon"
-                echo "$icons_path/$(basename "$dest_icon") removed successfully!"
+                cp $dest_icon $icons_path/$backup_default_icons_dir
+                echo "$icons_path/$backup_default_icons_dir/$(basename "$dest_icon") copied successfully!"
             fi
         done
-        echo "All ${theme^} icons removed successfully!"
-        backup_icons=($icons_path/$backup_icons_dir/*)
+        echo "All RetroPie's default icons backed up in $icons_path/$backup_default_icons_dir/ successfully!"
+    fi
+}
+
+function copy_theme_icons() {
+    if [[ ! -d "$themes_path/$theme/retropie/icons" ]]; then
+        echo "There are no icons in ${theme^}. Can't copy!"
+    else
+        dest_files=($icons_path/*)
+        for dest_file in "${dest_files[@]}"; do
+            [ "$dest_file" = "$icons_path/$backup_default_icons_dir" ] && continue
+            rm -rf "$dest_file"
+            echo "$dest_file removed succesfully!"
+        done
+        if [[ ! -d $icons_path/$theme-icons ]]; then
+            mkdir -p $icons_path/$theme-icons
+            echo "$icons_path/$theme-icons/ created succesfully!"
+        fi
+        src_icons=($themes_path/$theme/retropie/icons/*)
+        for src_icon in "${src_icons[@]}"; do
+            if [[ -f "$src_icon" ]]; then
+                cp $src_icon $icons_path
+                echo "$icons_path/$(basename "$src_icon") copied successfully!"
+                cp $src_icon $icons_path/$theme-icons
+                echo "$icons_path/$theme-icons/$(basename "$src_icon") copied successfully!"
+            fi
+        done
+        echo "All ${theme^} icons copied in $icons_path/ successfully!"
+    fi
+}
+
+function uninstall_icons() {
+    if [[ ! -d "$icons_path/$backup_default_icons_dir" ]]; then
+        echo "No icons to uninstall ... Move along!"
+    else
+        dest_files=($icons_path/*)
+        for dest_file in "${dest_files[@]}"; do
+            [ "$dest_file" = "$icons_path/$backup_default_icons_dir" ] && continue
+            rm -rf "$dest_file"
+            echo "$dest_file removed succesfully!"
+        done
+        backup_icons=($icons_path/$backup_default_icons_dir/*)
         for backup_icon in "${backup_icons[@]}"; do
             if [[ -f "$backup_icon" ]]; then 
-                cp "$backup_icon" "$icons_path"
+                cp $backup_icon $icons_path
                 echo "$icons_path/$(basename "$backup_icon") copied successfully!"
             fi
         done
-        echo "All icons restored from $icons_path/$backup_icons_dir/ succesfully!"
-        if [[ -d "$icons_path/$backup_icons_dir" ]]; then
-            rm -rf "$icons_path/$backup_icons_dir"
-            echo "$icons_path/$backup_icons_dir/ removed succesfully!"
+        echo "All icons restored from $icons_path/$backup_default_icons_dir/ succesfully!"
+        if [[ -d "$icons_path/$backup_default_icons_dir" ]]; then
+            rm -rf $icons_path/$backup_default_icons_dir
+            echo "$icons_path/$backup_default_icons_dir/ removed succesfully!"
         fi
     fi
 }
@@ -127,7 +141,7 @@ function uninstall_icons() {
 function install_splashscreen() {
     check_theme
     if [[ ! -d "$splashscreens_path" ]]; then
-        mkdir -p "$splashscreens_path"
+        mkdir -p $splashscreens_path
         echo "Splashscreens folder created successfully!"
     fi
     choose_splashscreen
@@ -152,8 +166,8 @@ function choose_splashscreen() {
             else
                 splashscreen="${options[$choice]}"
             fi
-            rm -f "$splashscreens_path/*"
-            cp "$themes_path/$theme/$splashscreen" "$splashscreens_path"
+            rm -f $splashscreens_path/*
+            cp $themes_path/$theme/$splashscreen $splashscreens_path
             echo "$splashscreen installed successfully!"
             ;; 
     esac
@@ -161,7 +175,8 @@ function choose_splashscreen() {
 
 function uninstall_splashscreen() {
     if [[ -d "$splashscreens_path" ]]; then
-        rm -f "$splashscreens_path/*"
+        echo "$splashscreens_path"
+        rm -f $splashscreens_path/*
         echo "${theme^} splashscreen removed successfully!"
     else
         echo "No splashscreen to remove ... Move along!"
@@ -174,12 +189,12 @@ function install_launching_images() {
     if [[ -d "$themes_path/$theme/launching-images" ]]; then
         if [[ -e "$themes_path/$theme/launching-images/.git" ]]; then
             echo "Launching images already installed."
-            cd "$themes_path/$theme/launching-images"
+            cd $themes_path/$theme/launching-images
             input="Launching images"
             check_updates
             cd -
         else
-            rm -rf "$themes_path/$theme/launching-images"
+            rm -rf $themes_path/$theme/launching-images
             install_launching_images
         fi
     else
@@ -210,7 +225,7 @@ function copy_launching_images() {
                     if [[ -e "$launching_images_path/$(basename "$dir")/launching.png" ]]; then
                         echo "There is already a 'launching.png' in $launching_images_path/$(basename "$dir")/"
                     else
-                        cp "$dir/launching.png" "$launching_images_path/$(basename "$dir")"
+                        cp $dir/launching.png" "$launching_images_path/$(basename "$dir")
                         echo "$launching_images_path/$(basename "$dir")/launching.png copied successfully!"
                     fi
                 else
@@ -228,7 +243,7 @@ function uninstall_launching_images() {
         if [[ -d "$dir" ]]; then
             if [[ -d "$dir" ]]; then
                 if [[ -e "$dir/launching.png" ]]; then
-                    rm -f "$dir/launching.png"
+                    rm -f $dir/launching.png
                     echo "$dir/launching.png removed successfully!"
                 else
                     echo "No 'launching.png' to remove in $dir/ ... Move along!"
@@ -240,7 +255,7 @@ function uninstall_launching_images() {
     done
     echo "All (possible) 'launching.png' removed successfully!"
     if [[ -d "$themes_path/$theme/launching-images" ]]; then
-        rm -rf "$themes_path/$theme/launching-images"
+        rm -rf $themes_path/$theme/launching-images
         echo "Launching images uninstalled successfully!"
     fi
 }
@@ -285,7 +300,7 @@ function check_updates() {
 }
 
 function check_theme() {
-    if [[ ! -d $themes_path/$theme ]]; then
+    if [[ ! -d "$themes_path/$theme" ]]; then
         echo "It seems like ${theme^} it's not installed ..."
         echo "Installing ${theme^} ..."
         install_theme
@@ -334,9 +349,9 @@ function try(){
             theme="${theme[1]}"
             if [[ "${status[choice-1]}" == "i" ]]; then
                 options=(1 "Update ${theme^}" 2 "Uninstall ${theme^}")
-                if [[ "$(ls -A $themes_path/$theme/retropie/icons)" ]]; then
+                #~ if [[ -d "$themes_path/$theme/retropie/icons" ]]; then
                     options+=(3 "Extras")
-                fi
+                #~ fi
                 cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^}" 15 50 06)
                 local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
                 case "$choice" in
@@ -350,13 +365,14 @@ function try(){
                         local options=()
                         local status=()
                         
-                        if [[ -d "$icons_path/$backup_icons_dir" ]]; then
+                        if [[ -d "$icons_path/$backup_default_icons_dir" && -d "$icons_path/$theme-icons" ]]; then
                             status+=("i")
                             options+=("1" "Update or Uninstall ${theme^} icons (installed)")
                         else
                             status+=("n")
                             options+=("1" "Install ${theme^} icons (not installed)")
                         fi
+                        
                         if [[ "$(ls -A $splashscreens_path)" ]]; then
                             status+=("i")
                             options+=("2" "Update or Uninstall ${theme^} splashscreen (installed)")
@@ -364,15 +380,10 @@ function try(){
                             status+=("n")
                             options+=("2" "Install ${theme^} splashscreen (not installed)")
                         fi
+                        
                         if [[ -d "$themes_path/$theme/launching-images" ]]; then
-                            if [[ -e "$themes_path/$theme/launching-images/.git" ]]; then
-                                status+=("i")
-                                options+=("3" "Update or Uninstall ${theme^} launching images (installed)")
-                            else
-                                rm -rf "$themes_path/$theme/launching-images"
-                                status+=("n")
-                                options+=("3" "Install ${theme^} launching images (not installed)")
-                            fi
+                            status+=("i")
+                            options+=("3" "Update or Uninstall ${theme^} launching images (installed)")
                         else
                             status+=("n")
                             options+=("3" "Install ${theme^} launching images (not installed)")
@@ -443,6 +454,13 @@ function try(){
         fi
     done
 }
+
+#~ dest_folders=($icons_path/*)
+#~ for dest_folder in "${dest_folders[@]}"; do
+    #~ [ "$dest_folder" = "$icons_path/pixel-icons" ] && continue
+    rm -rf "$dest_folder"
+    #~ echo $dest_folder
+#~ done
 
 # Call arguments verbatim
 $@
