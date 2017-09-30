@@ -151,32 +151,30 @@ function choose_splashscreen() {
     local options=()
     local i=1
     local splashscreens=($(find $themes_path/$theme -maxdepth 1 -type f -iname "*splash*"))
-    if [[ $splashscreens ]]; then
-        echo $splashscreens
+    if [[ ! $(find $themes_path/$theme -maxdepth 1 -type f -iname "*splash*") ]]; then
+        echo "There are no splashscreens in ${theme^}. Can't install!"
     else
-        echo "hola"
-    fi
-    exit
-    for splashscreen in "${splashscreens[@]}"; do
+        for splashscreen in "${splashscreens[@]}"; do
         if [[ -f "$splashscreen" ]]; then 
             options+=("$i" "$(basename "$splashscreen")")
             ((i++))
         fi
-    done
-    local cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^} splashscreen" 15 50 06)
-    local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-    case "$choice" in
+        done
+        local cmd=(dialog --backtitle "$backtitle" --menu "Choose an option for ${theme^} splashscreen" 15 50 06)
+        local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+        case "$choice" in
         *)
             if [[ $((choice%2)) -eq 0 ]]; then
-                splashscreen="${options[$choice+1]}"
+            splashscreen="${options[$choice+1]}"
             else
-                splashscreen="${options[$choice]}"
+            splashscreen="${options[$choice]}"
             fi
             rm -f $splashscreens_path/*
             cp $themes_path/$theme/$splashscreen $splashscreens_path
             echo "$splashscreen installed successfully!"
             ;; 
-    esac
+        esac
+    fi
 }
 
 function uninstall_splashscreen() {
@@ -317,7 +315,7 @@ function try(){
 
     local themes=(
         "ehettervik pixel"
-        "lilbud material"
+        #~ "lilbud material"
     )
 
     while true; do
